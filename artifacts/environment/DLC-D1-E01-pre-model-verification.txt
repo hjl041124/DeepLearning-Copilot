@@ -1,0 +1,48 @@
+========================================
+DLC-D1-E01 Pre-Model Verification
+Date: Wed Aug 19 22:29:56 CST 2026
+Git Commit: 1a5408b
+========================================
+
+===== BITSANDBYTES =====
+=================== bitsandbytes v0.50.0 ===================
+Platform: Linux-5.15.0-94-generic-x86_64-with-glibc2.35
+  libc: glibc-2.35
+Python: 3.11.15
+PyTorch: 2.13.0+cu126
+  CUDA: 12.6
+  HIP: N/A
+  XPU: N/A
+Related packages:
+  accelerate: 1.14.0
+  diffusers: not found
+  numpy: 2.4.6
+  pip: 26.2.1
+  peft: 0.20.0
+  safetensors: 0.8.0
+  transformers: 5.15.0
+  triton: 3.7.1
+  trl: 1.9.1
+============================================================
+PyTorch settings found: CUDA_VERSION=126, Highest Compute Capability: (8, 9).
+Checking that the library is importable and callable...
+SUCCESS!
+
+===== HUGGING FACE CACHE =====
+HF_HOME=/root/autodl-tmp/huggingface
+HF_HUB_CACHE=/root/autodl-tmp/huggingface/hub
+
+===== PYTHON ENVIRONMENT =====
+Python 3.11.15
+/root/autodl-tmp/envs/dlcopilot/bin/python
+
+===== GIT STATUS =====
+?? artifacts/environment/DLC-D1-E01-pre-model-verification.txt
+
+===== DATA DISK =====
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/md0        150G  7.2G  143G   5% /root/autodl-tmp
+
+========================================
+END
+========================================

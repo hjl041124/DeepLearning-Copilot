@@ -1,0 +1,35 @@
+========================================
+DeepLearning-Copilot
+DLC-D1-E02 Base Model Smoke Test
+========================================
+
+===== ENVIRONMENT =====
+PyTorch: 2.13.0+cu126
+Transformers: 5.15.0
+CUDA available: True
+GPU: NVIDIA GeForce RTX 4090 D
+Model path: models/Qwen3-4B-Instruct-2507
+
+===== LOAD TOKENIZER =====
+Tokenizer loaded successfully.
+
+===== LOAD MODEL =====
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:00<01:07,  5.87it/s]Loading weights:   4%|▍         | 15/398 [00:00<00:05, 66.55it/s]Loading weights:   9%|▉         | 36/398 [00:00<00:03, 108.77it/s]Loading weights:  13%|█▎        | 53/398 [00:00<00:02, 127.95it/s]Loading weights:  17%|█▋        | 69/398 [00:00<00:02, 136.47it/s]Loading weights:  21%|██        | 84/398 [00:00<00:02, 133.53it/s]Loading weights:  26%|██▌       | 102/398 [00:00<00:02, 141.09it/s]Loading weights:  29%|██▉       | 117/398 [00:00<00:02, 137.75it/s]Loading weights:  33%|███▎      | 133/398 [00:01<00:01, 143.82it/s]Loading weights:  37%|███▋      | 148/398 [00:01<00:01, 130.81it/s]Loading weights:  42%|████▏     | 168/398 [00:01<00:01, 142.48it/s]Loading weights:  46%|████▌     | 183/398 [00:01<00:01, 138.84it/s]Loading weights:  50%|████▉     | 198/398 [00:01<00:01, 139.39it/s]Loading weights:  54%|█████▎    | 213/398 [00:01<00:01, 134.38it/s]Loading weights:  57%|█████▋    | 227/398 [00:01<00:01, 135.03it/s]Loading weights:  62%|██████▏   | 245/398 [00:01<00:01, 140.73it/s]Loading weights:  65%|██████▌   | 260/398 [00:01<00:00, 138.52it/s]Loading weights:  70%|██████▉   | 278/398 [00:02<00:00, 145.73it/s]Loading weights:  74%|███████▎  | 293/398 [00:02<00:00, 141.84it/s]Loading weights:  78%|███████▊  | 311/398 [00:02<00:00, 148.18it/s]Loading weights:  82%|████████▏ | 326/398 [00:02<00:00, 143.36it/s]Loading weights:  86%|████████▋ | 344/398 [00:02<00:00, 149.39it/s]Loading weights:  90%|█████████ | 359/398 [00:02<00:00, 145.89it/s]Loading weights:  95%|█████████▍| 377/398 [00:02<00:00, 151.69it/s]Loading weights:  99%|█████████▊| 393/398 [00:02<00:00, 146.99it/s]Loading weights: 100%|██████████| 398/398 [00:02<00:00, 137.19it/s]
+Model loaded successfully in 3.96 seconds.
+Model device: cuda:0
+GPU memory allocated after loading (GB): 7.493
+
+===== BUILD CHAT INPUT =====
+Input tokens: 26
+
+===== GENERATION =====
+
+===== MODEL RESPONSE =====
+Overfitting in a deep learning experiment occurs when a model learns the training data too well, capturing noise and irrelevant patterns instead of the underlying relationships, which causes it to perform poorly on new, unseen data.
+
+===== RUNTIME =====
+Generation time: 3.16 seconds.
+Peak GPU memory during generation (GB): 7.511
+
+===== RESULT =====
+SMOKE TEST PASSED
