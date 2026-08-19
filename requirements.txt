@@ -1,0 +1,12 @@
+# DeepLearning-Copilot
+# Python 3.11
+#
+# PyTorch is installed separately from the official CUDA 12.6 index:
+# torch==2.13.0+cu126
+
+transformers==5.15.0
+accelerate==1.14.0
+peft==0.20.0
+trl==1.9.1
+bitsandbytes==0.50.0
+datasets==5.0.1

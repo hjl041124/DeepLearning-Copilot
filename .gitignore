@@ -1,0 +1,42 @@
+# Python（Python 暫存文件）
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment（虛擬環境）
+.venv/
+venv/
+env/
+
+# Secrets（密鑰）
+.env
+*.key
+*.pem
+
+# Model weights（模型權重）
+models/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Hugging Face cache（模型快取）
+.cache/
+huggingface/
+
+# Generated data（自動生成資料）
+data/raw/
+data/generated/
+
+# Runtime logs（臨時運行日誌）
+*.log
+
+# Notebook（Notebook 暫存）
+.ipynb_checkpoints/
+
+# Experiment trackers（實驗追蹤工具）
+wandb/
+
+# OS
+.DS_Store
