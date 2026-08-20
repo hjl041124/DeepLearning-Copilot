@@ -2,39 +2,62 @@
 
 ## Current Status（當前狀態）
 
-Day 1 COMPLETED
+Day 1: COMPLETED
+Day 2: COMPLETED
 
-Environment Setup（環境配置）:
-PASSED
-
-Model Download（模型下載）:
-PASSED
-
-Base Model Smoke Test（基線模型最小推理測試）:
-PASSED
-
-## Model（模型）
+## Base Model（基線模型）
 
 Qwen/Qwen3-4B-Instruct-2507
 
-## Environment（環境）
+Base Model Smoke Test:
+PASSED
 
-- Python 3.11.15
-- PyTorch 2.13.0+cu126
-- Transformers 5.15.0
-- CUDA available: True
-- GPU: NVIDIA GeForce RTX 4090 D
+## Day 2 Completed Modules（Day 2 已完成模組）
 
-## Last Completed Experiment（最近完成實驗）
+- configs/taxonomy_v1.json
+- configs/diagnosis_rules_v1.json
+- configs/feature_definitions_v1.json
+- configs/threshold_bands_v1.json
+- configs/output_schema_v1.json
+- configs/output_vocabulary_v1.json
+- configs/recommendation_mapping_v1.json
 
-DLC-D1-E02
-Base Model Smoke Test
+- src/evaluation/feature_calculator.py
+- src/evaluation/rule_engine.py
+- src/evaluation/diagnosis_pipeline.py
+- src/evaluation/output_validator.py
+- src/evaluation/ground_truth_builder.py
+
+## Validation Status（驗證狀態）
+
+All Day 2 core tests passed.
+
+Day 2 consistency:
+- Task types: 3
+- Primary issues: 7
+- Features: 17
+- Evidence codes: 20
+- Action codes: 24
+
+## Dataset Policy（資料集策略）
+
+Standard Set:
+- single primary issue
+- exclude borderline cases
+- deterministic Python Ground Truth
+
+Hard Test:
+- borderline cases
+- multi-issue cases
+- more difficult combinations
 
 ## Next Stage（下一階段）
 
-Day 2:
-Task Taxonomy（任務分類體系）
+Day 3:
+Dataset Generator（資料生成器）
 +
-JSON Schema（JSON 結構規範）
+Template System（模板系統）
++
+Dataset Validation（資料驗證）
 
-Do not start training.
+Do not start QLoRA training yet.

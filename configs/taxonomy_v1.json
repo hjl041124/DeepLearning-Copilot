@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+
+  "task_types": [
+    {
+      "id": "experiment_diagnosis",
+      "name_zh": "實驗診斷",
+      "description": "Diagnose the primary problem of a single deep-learning experiment."
+    },
+    {
+      "id": "metric_interpretation",
+      "name_zh": "指標解讀",
+      "description": "Interpret the meaning and limitations of reported evaluation metrics."
+    },
+    {
+      "id": "model_comparison",
+      "name_zh": "模型比較",
+      "description": "Compare multiple runs or models under performance and efficiency constraints."
+    }
+  ],
+
+  "primary_issues": [
+    {
+      "id": "overfitting",
+      "name_zh": "過擬合",
+      "definition": "Training performance continues to improve while validation performance stagnates or degrades, producing a meaningful generalization gap."
+    },
+    {
+      "id": "underfitting",
+      "name_zh": "欠擬合或學習不足",
+      "definition": "Training and validation performance both remain insufficient under otherwise stable optimization, indicating insufficient fitting capacity or learning."
+    },
+    {
+      "id": "optimization_problem",
+      "name_zh": "優化問題",
+      "definition": "Training is hindered by unstable, divergent, excessively slow, or otherwise abnormal optimization behavior such as inappropriate learning rate or gradient instability."
+    },
+    {
+      "id": "class_imbalance",
+      "name_zh": "類別不平衡",
+      "definition": "Class distribution or class-wise performance is strongly uneven and materially affects aggregate metrics or minority-class performance."
+    },
+    {
+      "id": "data_quality_issue",
+      "name_zh": "資料品質問題",
+      "definition": "Problems such as label noise, duplicates, missing values, corrupted samples, distribution mismatch, or inconsistent preprocessing materially affect the experiment."
+    },
+    {
+      "id": "no_clear_issue",
+      "name_zh": "沒有明顯問題",
+      "definition": "The available evidence does not support a clear experiment pathology."
+    },
+    {
+      "id": "not_applicable",
+      "name_zh": "不適用",
+      "definition": "Used when the task does not require assigning a diagnostic issue."
+    }
+  ],
+
+  "severity_levels": [
+    "low",
+    "medium",
+    "high",
+    "not_applicable"
+  ],
+
+  "standard_set_rules": {
+    "single_task_type_per_sample": true,
+    "single_primary_issue_per_sample": true,
+    "allow_multi_issue_cases": false,
+    "allow_ambiguous_boundary_cases": false,
+    "reserve_multi_issue_for_hard_test": true,
+
+    "experiment_diagnosis_allowed_issues": [
+      "overfitting",
+      "underfitting",
+      "optimization_problem",
+      "class_imbalance",
+      "data_quality_issue",
+      "no_clear_issue"
+    ],
+
+    "non_diagnosis_primary_issue": "not_applicable"
+  }
+}

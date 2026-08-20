@@ -1,0 +1,98 @@
+{
+  "version": "1.0",
+  "generalization": {
+    "relative_generalization_gap": {
+      "normal_max": 0.05,
+      "borderline_low": 0.05,
+      "borderline_high": 0.15,
+      "strong_min": 0.15,
+      "reference": "Deepchecks relative degradation uses 0.10 by default; 0.15 also appears in examples.",
+      "standard_set_policy": "exclude_borderline",
+      "high_min": 0.25
+    },
+    "late_degradation": {
+      "normal_max": 0.03,
+      "borderline_high": 0.1,
+      "strong_min": 0.1,
+      "reference": "project adaptation",
+      "standard_set_policy": "exclude_borderline",
+      "high_min": 0.2
+    }
+  },
+  "underfitting": {
+    "reference_performance_gap": {
+      "normal_max": 0.05,
+      "strong_min": 0.15,
+      "reference": "project adaptation",
+      "require_reference_performance": true,
+      "high_min": 0.3
+    }
+  },
+  "class_imbalance": {
+    "class_imbalance_ratio": {
+      "strong_max": 0.1,
+      "borderline_high": 0.5,
+      "clearly_balanced_min": 0.5,
+      "reference": "Deepchecks default least-to-most class ratio threshold is 0.10",
+      "standard_set_policy": "use_clear_extremes_only",
+      "high_max": 0.05
+    },
+    "class_performance_gap": {
+      "normal_max": 0.08,
+      "strong_min": 0.25,
+      "reference": "project adaptation",
+      "high_min": 0.35
+    },
+    "accuracy_macro_f1_gap": {
+      "normal_max": 0.05,
+      "strong_min": 0.15,
+      "reference": "project adaptation",
+      "high_min": 0.25
+    }
+  },
+  "optimization": {
+    "plateau": {
+      "relative_min_delta": 0.005,
+      "strong_streak_min": 4,
+      "reference": "adapted from Keras min_delta + patience concept"
+    },
+    "oscillation": {
+      "oscillation_score_strong_min": 0.6,
+      "relative_amplitude_strong_min": 0.2,
+      "oscillation_score_normal_max": 0.2,
+      "relative_amplitude_normal_max": 0.05,
+      "reference": "project adaptation",
+      "oscillation_score_high_min": 0.8,
+      "relative_amplitude_high_min": 0.35
+    }
+  },
+  "data_quality": {
+    "label_noise_rate": {
+      "strong_min": 0.2,
+      "high_min": 0.35
+    },
+    "duplicate_rate": {
+      "strong_min": 0.2,
+      "high_min": 0.35
+    },
+    "missing_value_rate": {
+      "strong_min": 0.15,
+      "high_min": 0.3
+    },
+    "corrupted_sample_rate": {
+      "strong_min": 0.1,
+      "high_min": 0.25
+    },
+    "split_overlap_rate": {
+      "strong_min": 0.01,
+      "high_min": 0.05
+    },
+    "reference": "conservative synthetic generation thresholds; not universal real-world thresholds"
+  },
+  "design_constraints": {
+    "standard_set_excludes_borderline_cases": true,
+    "thresholds_are_generation_rules_not_universal_truth": true,
+    "hard_test_may_include_borderline_cases": true,
+    "single_feature_is_not_sufficient_for_final_diagnosis": true
+  }
+}

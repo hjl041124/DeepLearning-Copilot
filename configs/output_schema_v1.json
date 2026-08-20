@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeepLearning-Copilot Output Schema v1",
+  "type": "object",
+
+  "required": [
+    "task_type",
+    "primary_issue",
+    "severity",
+    "evidence_codes",
+    "recommended_action_codes",
+    "explanation"
+  ],
+
+  "properties": {
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "experiment_diagnosis",
+        "metric_interpretation",
+        "model_comparison"
+      ]
+    },
+
+    "primary_issue": {
+      "type": "string",
+      "enum": [
+        "overfitting",
+        "underfitting",
+        "optimization_problem",
+        "class_imbalance",
+        "data_quality_issue",
+        "no_clear_issue",
+        "not_applicable"
+      ]
+    },
+
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "not_applicable"
+      ]
+    },
+
+    "evidence_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "recommended_action_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "explanation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 800
+    }
+  },
+
+  "additionalProperties": false,
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "task_type": {
+            "const": "experiment_diagnosis"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "primary_issue": {
+            "not": {
+              "const": "not_applicable"
+            }
+          },
+          "severity": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "task_type": {
+            "enum": [
+              "metric_interpretation",
+              "model_comparison"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "primary_issue": {
+            "const": "not_applicable"
+          },
+          "severity": {
+            "const": "not_applicable"
+          }
+        }
+      }
+    }
+  ]
+}

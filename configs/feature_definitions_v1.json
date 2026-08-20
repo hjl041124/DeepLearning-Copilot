@@ -1,0 +1,166 @@
+{
+  "version": "1.0",
+  "epsilon": 1e-08,
+  "metric_directions": {
+    "accuracy": "higher_is_better",
+    "precision": "higher_is_better",
+    "recall": "higher_is_better",
+    "f1": "higher_is_better",
+    "macro_f1": "higher_is_better",
+    "loss": "lower_is_better"
+  },
+  "features": {
+    "relative_generalization_gap": {
+      "category": "generalization",
+      "inputs": [
+        "train_value",
+        "validation_value",
+        "metric_direction"
+      ],
+      "description": "Normalized degradation from training performance to validation performance.",
+      "range": "[0, 1] for ordinary non-negative metrics under normal conditions",
+      "threshold_status": "not_finalized"
+    },
+    "signed_train_validation_gap": {
+      "category": "generalization",
+      "inputs": [
+        "train_value",
+        "validation_value",
+        "metric_direction"
+      ],
+      "description": "Signed train-validation difference before clipping.",
+      "threshold_status": "not_finalized"
+    },
+    "late_degradation": {
+      "category": "trend",
+      "inputs": [
+        "metric_series",
+        "metric_direction"
+      ],
+      "description": "Relative degradation between the best observed epoch and the final epoch.",
+      "threshold_status": "not_finalized"
+    },
+    "relative_improvement": {
+      "category": "trend",
+      "inputs": [
+        "metric_series",
+        "metric_direction",
+        "window_fraction"
+      ],
+      "default_window_fraction": 0.2,
+      "description": "Relative improvement between the early-window mean and late-window mean.",
+      "threshold_status": "not_finalized"
+    },
+    "plateau_streak": {
+      "category": "optimization",
+      "inputs": [
+        "metric_series",
+        "metric_direction",
+        "min_delta"
+      ],
+      "description": "Number of consecutive final epochs without meaningful improvement.",
+      "threshold_status": "not_finalized"
+    },
+    "oscillation_score": {
+      "category": "optimization",
+      "inputs": [
+        "metric_series"
+      ],
+      "description": "One minus net change divided by total variation. Monotonic curves approach zero; back-and-forth curves approach one.",
+      "expected_range": "[0, 1]",
+      "threshold_status": "not_finalized"
+    },
+    "relative_amplitude": {
+      "category": "optimization",
+      "inputs": [
+        "metric_series"
+      ],
+      "description": "Curve range normalized by the absolute mean magnitude.",
+      "threshold_status": "not_finalized"
+    },
+    "class_imbalance_ratio": {
+      "category": "class_imbalance",
+      "inputs": [
+        "class_counts"
+      ],
+      "description": "Least frequent observed class count divided by most frequent observed class count.",
+      "expected_range": "(0, 1]",
+      "threshold_status": "reference_available_not_finalized"
+    },
+    "class_performance_gap": {
+      "category": "class_imbalance",
+      "inputs": [
+        "per_class_metric"
+      ],
+      "description": "Maximum per-class performance minus minimum per-class performance.",
+      "threshold_status": "not_finalized"
+    },
+    "class_performance_ratio": {
+      "category": "class_imbalance",
+      "inputs": [
+        "per_class_metric"
+      ],
+      "description": "Minimum per-class performance divided by maximum per-class performance.",
+      "expected_range": "[0, 1]",
+      "threshold_status": "not_finalized"
+    },
+    "accuracy_macro_f1_gap": {
+      "category": "class_imbalance",
+      "inputs": [
+        "accuracy",
+        "macro_f1"
+      ],
+      "description": "Positive difference between overall accuracy and macro-F1.",
+      "expected_range": "[0, 1]",
+      "threshold_status": "not_finalized"
+    },
+    "label_noise_rate": {
+      "category": "data_quality",
+      "source": "externally_measured",
+      "expected_range": "[0, 1]",
+      "llm_may_invent": false
+    },
+    "duplicate_rate": {
+      "category": "data_quality",
+      "source": "externally_measured",
+      "expected_range": "[0, 1]",
+      "llm_may_invent": false
+    },
+    "missing_value_rate": {
+      "category": "data_quality",
+      "source": "externally_measured",
+      "expected_range": "[0, 1]",
+      "llm_may_invent": false
+    },
+    "corrupted_sample_rate": {
+      "category": "data_quality",
+      "source": "externally_measured",
+      "expected_range": "[0, 1]",
+      "llm_may_invent": false
+    },
+    "split_overlap_rate": {
+      "category": "data_quality",
+      "source": "externally_measured",
+      "expected_range": "[0, 1]",
+      "llm_may_invent": false
+    },
+    "reference_performance_gap": {
+      "category": "underfitting",
+      "inputs": [
+        "observed_training_performance",
+        "reference_performance"
+      ],
+      "description": "Relative shortfall of observed training performance versus an explicit baseline or expected reference.",
+      "threshold_status": "defined_in_threshold_bands",
+      "reference_required": true
+    }
+  },
+  "design_constraints": {
+    "prefer_relative_features": true,
+    "retain_absolute_features_when_interpretable": true,
+    "do_not_use_single_feature_as_ground_truth": true,
+    "do_not_use_universal_accuracy_threshold": true,
+    "data_quality_statistics_must_be_measured_or_provided": true,
+    "thresholds_are_not_finalized": true
+  }
+}

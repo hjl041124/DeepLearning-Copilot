@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+
+  "default_actions": {
+    "overfitting": [
+      "increase_regularization",
+      "use_early_stopping",
+      "add_data_augmentation"
+    ],
+
+    "underfitting": [
+      "increase_model_capacity",
+      "train_longer",
+      "improve_feature_representation"
+    ],
+
+    "optimization_problem": [
+      "inspect_optimizer_settings"
+    ],
+
+    "class_imbalance": [
+      "use_class_weighting",
+      "use_balanced_sampling",
+      "evaluate_macro_metrics"
+    ],
+
+    "data_quality_issue": [],
+
+    "no_clear_issue": [
+      "continue_monitoring"
+    ]
+  },
+
+  "evidence_specific_actions": {
+    "nan_or_inf": [
+      "check_numeric_stability",
+      "reduce_learning_rate"
+    ],
+
+    "gradient_instability": [
+      "use_gradient_clipping",
+      "reduce_learning_rate"
+    ],
+
+    "loss_divergence": [
+      "reduce_learning_rate",
+      "inspect_optimizer_settings"
+    ],
+
+    "strong_loss_oscillation": [
+      "reduce_learning_rate",
+      "inspect_optimizer_settings"
+    ],
+
+    "training_plateau": [
+      "train_longer"
+    ],
+
+    "strong_class_distribution_skew": [
+      "use_class_weighting",
+      "use_balanced_sampling"
+    ],
+
+    "large_class_performance_gap": [
+      "collect_more_minority_samples",
+      "evaluate_macro_metrics"
+    ],
+
+    "large_accuracy_macro_f1_gap": [
+      "evaluate_macro_metrics"
+    ],
+
+    "high_label_noise": [
+      "clean_noisy_labels"
+    ],
+
+    "high_duplicate_rate": [
+      "remove_duplicates"
+    ],
+
+    "high_missing_value_rate": [
+      "handle_missing_values"
+    ],
+
+    "high_corrupted_sample_rate": [
+      "remove_corrupted_samples"
+    ],
+
+    "split_overlap_detected": [
+      "fix_split_overlap"
+    ],
+
+    "preprocessing_mismatch": [
+      "align_preprocessing"
+    ],
+
+    "distribution_shift_detected": [
+      "investigate_distribution_shift"
+    ]
+  }
+}

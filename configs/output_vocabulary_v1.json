@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+
+  "evidence_codes": [
+    "strong_generalization_gap",
+    "late_validation_degradation",
+    "large_reference_performance_shortfall",
+    "small_train_validation_gap",
+    "training_plateau",
+
+    "nan_or_inf",
+    "gradient_instability",
+    "loss_divergence",
+    "strong_loss_oscillation",
+
+    "strong_class_distribution_skew",
+    "large_class_performance_gap",
+    "large_accuracy_macro_f1_gap",
+
+    "high_label_noise",
+    "high_duplicate_rate",
+    "high_missing_value_rate",
+    "high_corrupted_sample_rate",
+    "split_overlap_detected",
+    "preprocessing_mismatch",
+    "distribution_shift_detected",
+
+    "no_strong_diagnostic_rule_triggered"
+  ],
+
+  "recommended_action_codes": [
+    "increase_regularization",
+    "use_early_stopping",
+    "add_data_augmentation",
+    "reduce_model_capacity",
+
+    "increase_model_capacity",
+    "train_longer",
+    "improve_feature_representation",
+
+    "reduce_learning_rate",
+    "increase_learning_rate",
+    "use_gradient_clipping",
+    "check_numeric_stability",
+    "inspect_optimizer_settings",
+
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "collect_more_minority_samples",
+    "evaluate_macro_metrics",
+
+    "clean_noisy_labels",
+    "remove_duplicates",
+    "handle_missing_values",
+    "remove_corrupted_samples",
+    "fix_split_overlap",
+    "align_preprocessing",
+    "investigate_distribution_shift",
+
+    "continue_monitoring"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+
+  "priority_order": [
+    "data_quality_issue",
+    "optimization_problem",
+    "class_imbalance",
+    "overfitting",
+    "underfitting",
+    "no_clear_issue"
+  ],
+
+  "rules": {
+    "overfitting": {
+      "required_concepts": [
+        "stable_optimization",
+        "strong_train_performance",
+        "meaningful_train_validation_gap"
+      ],
+      "supporting_concepts": [
+        "validation_stagnation",
+        "validation_degradation",
+        "late_epoch_gap_growth"
+      ]
+    },
+
+    "underfitting": {
+      "required_concepts": [
+        "stable_optimization",
+        "weak_train_performance",
+        "weak_validation_performance",
+        "small_train_validation_gap"
+      ],
+      "supporting_concepts": [
+        "training_plateau",
+        "insufficient_capacity",
+        "insufficient_learning"
+      ]
+    },
+
+    "optimization_problem": {
+      "trigger_concepts": [
+        "loss_divergence",
+        "loss_oscillation",
+        "nan_or_inf",
+        "gradient_instability",
+        "learning_rate_too_high",
+        "learning_rate_too_low",
+        "training_loss_not_decreasing"
+      ]
+    },
+
+    "class_imbalance": {
+      "required_concepts": [
+        "class_distribution_skew_or_classwise_gap"
+      ],
+      "supporting_concepts": [
+        "minority_recall_low",
+        "minority_f1_low",
+        "accuracy_macro_f1_gap",
+        "majority_class_dominance"
+      ]
+    },
+
+    "data_quality_issue": {
+      "trigger_concepts": [
+        "high_label_noise",
+        "high_duplicate_rate",
+        "missing_values",
+        "corrupted_samples",
+        "preprocessing_mismatch",
+        "train_validation_distribution_shift"
+      ]
+    },
+
+    "no_clear_issue": {
+      "required_concepts": [
+        "no_rule_triggered"
+      ]
+    }
+  },
+
+  "design_constraints": {
+    "standard_set_single_issue": true,
+    "hard_thresholds_not_finalized": true,
+    "ground_truth_must_be_python_deterministic": true,
+    "llm_must_not_assign_ground_truth": true
+  }
+}
