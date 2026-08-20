@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "description": "Deterministic project-owned rules for metric_interpretation and model_comparison.",
+  "policy": {
+    "rule_type": "project_sampling_rule",
+    "not_universal_scientific_thresholds": true,
+    "exclude_borderline_cases_from_standard_set": true,
+    "llm_must_not_assign_ground_truth": true
+  },
+  "metric_interpretation": {
+    "precision_recall_absolute_gap": {
+      "strong_min": 0.15,
+      "description": "Minimum absolute precision-recall difference used for clear synthetic interpretation cases."
+    }
+  },
+  "model_comparison": {
+    "clear_quality_relative_margin": {
+      "strong_min": 0.05,
+      "description": "Minimum relative difference for a clear primary-metric winner."
+    },
+    "quality_efficiency_quality_margin": {
+      "strong_min": 0.05,
+      "description": "Minimum relative quality difference in a quality-efficiency tradeoff."
+    },
+    "quality_efficiency_latency_margin": {
+      "strong_min": 0.15,
+      "description": "Minimum relative latency difference in a quality-efficiency tradeoff."
+    },
+    "imbalanced_macro_f1_absolute_margin": {
+      "strong_min": 0.05,
+      "description": "Minimum macro-F1 difference for a clear imbalance-aware comparison."
+    },
+    "no_clear_winner_relative_margin": {
+      "normal_max": 0.02,
+      "description": "Maximum relative primary-metric difference for no-clear-winner samples."
+    }
+  }
+}

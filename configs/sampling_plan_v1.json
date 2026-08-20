@@ -1,0 +1,1521 @@
+{
+  "version": "1.0",
+  "description": "Sampling Plan for DeepLearning-Copilot Pilot Set and full Standard Set.",
+  "policy": {
+    "sampling_order": [
+      "split",
+      "task_type",
+      "primary_issue_for_experiment_diagnosis",
+      "scenario_family",
+      "template_family",
+      "numeric_or_paraphrase_variant"
+    ],
+    "balance_task_types_by_configured_ratio": true,
+    "balance_diagnosis_primary_issues": true,
+    "balance_scenarios_within_group": true,
+    "balance_templates_within_scenario_and_split": true,
+    "random_split_after_generation": false,
+    "template_family_split_is_fixed": true,
+    "pilot_is_for_pipeline_validation_only": true
+  },
+  "final_split_targets": {
+    "train": 2400,
+    "validation": 300,
+    "test": 480
+  },
+  "task_type_ratios": {
+    "experiment_diagnosis": 0.6,
+    "metric_interpretation": 0.2,
+    "model_comparison": 0.2
+  },
+  "split_task_targets": {
+    "train": {
+      "experiment_diagnosis": 1440,
+      "metric_interpretation": 480,
+      "model_comparison": 480
+    },
+    "validation": {
+      "experiment_diagnosis": 180,
+      "metric_interpretation": 60,
+      "model_comparison": 60
+    },
+    "test": {
+      "experiment_diagnosis": 288,
+      "metric_interpretation": 96,
+      "model_comparison": 96
+    }
+  },
+  "split_diagnosis_issue_targets": {
+    "train": {
+      "class_imbalance": 240,
+      "data_quality_issue": 240,
+      "no_clear_issue": 240,
+      "optimization_problem": 240,
+      "overfitting": 240,
+      "underfitting": 240
+    },
+    "validation": {
+      "class_imbalance": 30,
+      "data_quality_issue": 30,
+      "no_clear_issue": 30,
+      "optimization_problem": 30,
+      "overfitting": 30,
+      "underfitting": 30
+    },
+    "test": {
+      "class_imbalance": 48,
+      "data_quality_issue": 48,
+      "no_clear_issue": 48,
+      "optimization_problem": 48,
+      "overfitting": 48,
+      "underfitting": 48
+    }
+  },
+  "pilot": {
+    "samples_per_template_family": 1,
+    "expected_template_families": 144,
+    "expected_total_samples": 144
+  },
+  "template_quotas": [
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 10
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 26
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 10
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 26
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 10
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 8
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 27
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 26
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 6
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 6
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 6
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 6
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 4
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 6
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 5
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 4
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 16
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "pilot_sample_count": 1,
+      "full_sample_count": 15
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "pilot_sample_count": 1,
+      "full_sample_count": 12
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "pilot_sample_count": 1,
+      "full_sample_count": 40
+    }
+  ]
+}

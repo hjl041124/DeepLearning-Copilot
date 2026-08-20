@@ -1,0 +1,544 @@
+{
+  "version": "1.0",
+  "description": "DeepLearning-Copilot Day 3 scenario family configuration.",
+  "design_policy": {
+    "standard_split_unit": "template_family_id",
+    "scenario_family_may_span_standard_splits": true,
+    "unseen_scenario_family_reserved_for_hard_test": true,
+    "standard_set_single_primary_issue": true,
+    "standard_set_excludes_borderline_cases": true,
+    "ground_truth_must_be_deterministic_python": true,
+    "sampling_policy": "balance_task_type_then_primary_issue_then_scenario_family"
+  },
+  "task_types": {
+    "experiment_diagnosis": {
+      "status": "ready_for_template_design",
+      "description": "单次或单实验级实验诊断任务。",
+      "sampling_policy": "balance_primary_issue_then_scenario_family",
+      "scenario_families": [
+        {
+          "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+          "primary_issue": "overfitting",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction",
+            "validation_curve"
+          ],
+          "required_features": [
+            "relative_generalization_gap",
+            "late_degradation"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Use the existing diagnosis pipeline. Require a strong relative generalization gap together with late validation degradation.",
+          "source_basis": [
+            "Deepchecks Train-Test Performance",
+            "scikit-learn learning curve"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+          "primary_issue": "overfitting",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction",
+            "validation_curve"
+          ],
+          "required_features": [
+            "relative_generalization_gap",
+            "late_degradation"
+          ],
+          "required_flags": [],
+          "generation_constraints": {
+            "metric_direction": "lower_is_better",
+            "preferred_metric": "loss"
+          },
+          "ground_truth_strategy": "Construct loss-based cases in which validation loss reaches a best point and later worsens while the train-validation gap is clearly abnormal.",
+          "source_basis": [
+            "scikit-learn underfitting versus overfitting"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+          "primary_issue": "underfitting",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction",
+            "reference_performance"
+          ],
+          "required_features": [
+            "relative_generalization_gap",
+            "reference_performance_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Require a large shortfall relative to an explicit reference while keeping the train-validation gap small.",
+          "source_basis": [
+            "scikit-learn learning curve"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+          "primary_issue": "underfitting",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction",
+            "reference_performance",
+            "training_curve"
+          ],
+          "required_features": [
+            "relative_generalization_gap",
+            "reference_performance_gap",
+            "plateau_streak"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Require reference performance shortfall and a small train-validation gap, with training plateau as supporting evidence.",
+          "source_basis": [
+            "scikit-learn learning curve",
+            "Keras EarlyStopping concept"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+          "primary_issue": "optimization_problem",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "training_curve"
+          ],
+          "required_features": [
+            "oscillation_score",
+            "relative_amplitude"
+          ],
+          "required_flags": [],
+          "generation_constraints": {
+            "preferred_metric": "loss"
+          },
+          "ground_truth_strategy": "Require both strong oscillation score and strong relative amplitude so that tiny harmless fluctuations do not trigger the diagnosis.",
+          "source_basis": [
+            "Existing DeepLearning-Copilot optimization feature logic"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_OP_NAN_OR_INF",
+          "primary_issue": "optimization_problem",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "flags"
+          ],
+          "required_features": [],
+          "required_flags": [
+            "nan_or_inf"
+          ],
+          "ground_truth_strategy": "Set the deterministic nan_or_inf flag and exclude higher-priority data-quality triggers.",
+          "source_basis": [
+            "Keras TerminateOnNaN"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+          "primary_issue": "class_imbalance",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "class_counts",
+            "per_class_metric"
+          ],
+          "required_features": [
+            "class_imbalance_ratio",
+            "class_performance_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Require strong class-count skew together with a large class-performance gap.",
+          "source_basis": [
+            "Deepchecks Class Imbalance",
+            "imbalanced-learn classification metrics"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+          "primary_issue": "class_imbalance",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "class_counts",
+            "accuracy",
+            "macro_f1"
+          ],
+          "required_features": [
+            "class_imbalance_ratio",
+            "accuracy_macro_f1_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Require strong class-count skew and a large accuracy versus macro-F1 gap.",
+          "source_basis": [
+            "imbalanced-learn metrics"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+          "primary_issue": "class_imbalance",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "class_counts",
+            "per_class_metric"
+          ],
+          "required_features": [
+            "class_imbalance_ratio",
+            "class_performance_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate a strongly underrepresented class whose class-specific metric is substantially worse than the best class.",
+          "source_basis": [
+            "imbalanced-learn classification report"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+          "primary_issue": "data_quality_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "data_quality.label_noise_rate"
+          ],
+          "required_features": [
+            "label_noise_rate"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate a clearly high deterministic label-noise rate using project-owned threshold bands.",
+          "source_basis": [
+            "Cleanlab label-quality concepts"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+          "primary_issue": "data_quality_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "data_quality.duplicate_rate"
+          ],
+          "required_features": [
+            "duplicate_rate"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate a clearly high deterministic duplicate rate using project-owned threshold bands.",
+          "source_basis": [
+            "Cleanlab duplicate and near-duplicate concepts"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+          "primary_issue": "data_quality_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "data_quality.split_overlap_rate"
+          ],
+          "required_features": [
+            "split_overlap_rate"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate explicit cross-split sample overlap while keeping ordinary duplicate-rate evidence separate.",
+          "source_basis": [
+            "Deepchecks Train-Test Samples Mix"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+          "primary_issue": "data_quality_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "flags"
+          ],
+          "required_features": [],
+          "required_flags": [
+            "preprocessing_mismatch"
+          ],
+          "ground_truth_strategy": "Use an explicit deterministic preprocessing mismatch flag.",
+          "source_basis": [
+            "Deepchecks train-test validation concepts"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+          "primary_issue": "data_quality_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "flags"
+          ],
+          "required_features": [],
+          "required_flags": [
+            "distribution_shift_detected"
+          ],
+          "ground_truth_strategy": "Use an explicit deterministic distribution-shift flag. Do not fabricate statistical drift scores.",
+          "source_basis": [
+            "Deepchecks drift concepts",
+            "Cleanlab non-IID concepts"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+          "primary_issue": "no_clear_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction",
+            "training_curve",
+            "validation_curve"
+          ],
+          "required_features": [
+            "relative_generalization_gap",
+            "late_degradation",
+            "oscillation_score",
+            "relative_amplitude"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate a stable converged experiment in which all diagnostic features remain safely inside normal regions.",
+          "source_basis": [
+            "Negative control derived from project rule boundaries"
+          ]
+        },
+        {
+          "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+          "primary_issue": "no_clear_issue",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "class_counts",
+            "per_class_metric",
+            "accuracy",
+            "macro_f1"
+          ],
+          "required_features": [
+            "class_imbalance_ratio",
+            "class_performance_gap",
+            "accuracy_macro_f1_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Generate balanced class counts and similar class-wise performance so no imbalance rule is triggered.",
+          "source_basis": [
+            "Negative control derived from project rule boundaries"
+          ]
+        }
+      ]
+    },
+    "metric_interpretation": {
+      "status": "ready_for_template_design",
+      "description": "指标解读任务。当前只定义场景，不进入 Standard Set，直到确定性 Ground Truth 逻辑实现。",
+      "sampling_policy": "balanced_scenario_family",
+      "scenario_families": [
+        {
+          "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "accuracy",
+            "macro_f1",
+            "class_counts"
+          ],
+          "required_features": [
+            "accuracy_macro_f1_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "imbalanced-learn metrics"
+          ]
+        },
+        {
+          "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "precision",
+            "recall"
+          ],
+          "required_features": [],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "Standard classification metric semantics"
+          ]
+        },
+        {
+          "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "per_class_metric"
+          ],
+          "required_features": [
+            "class_performance_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "imbalanced-learn class-wise metrics"
+          ]
+        },
+        {
+          "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "train_metric",
+            "validation_metric",
+            "metric_direction"
+          ],
+          "required_features": [
+            "relative_generalization_gap"
+          ],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "scikit-learn learning curve concepts"
+          ]
+        }
+      ]
+    },
+    "model_comparison": {
+      "status": "ready_for_template_design",
+      "description": "模型比较任务。当前只定义场景，不进入 Standard Set，直到确定性多模型比较逻辑实现。",
+      "sampling_policy": "balanced_scenario_family",
+      "scenario_families": [
+        {
+          "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "primary_metric",
+            "metric_direction",
+            "model_a_value",
+            "model_b_value"
+          ],
+          "required_features": [],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "Standard model evaluation practice"
+          ]
+        },
+        {
+          "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "quality_metric",
+            "quality_direction",
+            "model_a_quality",
+            "model_b_quality",
+            "model_a_latency_ms",
+            "model_b_latency_ms"
+          ],
+          "required_features": [],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "Standard deployment-oriented model comparison"
+          ]
+        },
+        {
+          "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "model_a_accuracy",
+            "model_a_macro_f1",
+            "model_b_accuracy",
+            "model_b_macro_f1"
+          ],
+          "required_features": [],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "imbalanced-learn metric concepts"
+          ]
+        },
+        {
+          "scenario_family_id": "MC_NO_CLEAR_WINNER",
+          "primary_issue": "not_applicable",
+          "status": "ready",
+          "standard_set_allowed": true,
+          "hard_test_only": false,
+          "required_inputs": [
+            "primary_metric",
+            "metric_direction",
+            "model_a_value",
+            "model_b_value"
+          ],
+          "required_features": [],
+          "required_flags": [],
+          "ground_truth_strategy": "Use deterministic Python logic in src/evaluation/non_diagnosis_ground_truth.py.",
+          "source_basis": [
+            "Standard comparative evaluation practice"
+          ]
+        }
+      ]
+    }
+  },
+  "deferred_scenario_families": [
+    {
+      "scenario_family_id": "ED_OP_REPEATED_LR_REDUCTION_NO_RECOVERY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "status": "deferred",
+      "standard_set_allowed": false,
+      "reason": "Requires deterministic learning-rate history features and rules."
+    },
+    {
+      "scenario_family_id": "ED_DQ_STATISTICAL_NON_IID",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "status": "deferred",
+      "standard_set_allowed": false,
+      "reason": "Requires a deterministic statistical non-IID calculator. P-values must not be fabricated."
+    }
+  ]
+}

@@ -1,0 +1,3196 @@
+{
+  "version": "1.0",
+  "description": "Template Family configuration for DeepLearning-Copilot Standard Set.",
+  "design_policy": {
+    "standard_split_unit": "template_family_id",
+    "split_assignment_before_generation": true,
+    "random_split_after_generation": false,
+    "scenario_family_may_span_standard_splits": true,
+    "unseen_scenario_family_reserved_for_hard_test": true,
+    "presentation_family_split_is_global": true
+  },
+  "presentation_families": [
+    {
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "render_mode": "structured_block",
+      "description": "结构化字段块。使用稳定字段标签逐行呈现实验信息，但不使用 JSON 作为用户输入格式。",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot."
+    },
+    {
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "render_mode": "tabular_report",
+      "description": "表格报告。将必要实验指标组织成两列或多列表格。",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values."
+    },
+    {
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "render_mode": "tracker_export",
+      "description": "实验跟踪器导出格式。模拟 experiment tracker 中的 run summary 和 key=value 字段。",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields."
+    },
+    {
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "render_mode": "concise_note",
+      "description": "简洁实验记录。将必要指标写成短篇自然语言记录。",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note."
+    },
+    {
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "render_mode": "debug_ticket",
+      "description": "调试工单格式。使用 Context、Observations、Question 等结构描述实验问题。",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections."
+    },
+    {
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "render_mode": "narrative_summary",
+      "description": "自然语言实验总结。将指标嵌入连续的实验运行描述中。",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout."
+    }
+  ],
+  "template_families": [
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OF_VALIDATION_LOSS_RISES__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "overfitting",
+      "scenario_family_id": "ED_OF_VALIDATION_LOSS_RISES",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "validation_curve"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_LOW_SCORES_VS_REFERENCE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "underfitting",
+      "scenario_family_id": "ED_UF_REFERENCE_SHORTFALL_PLATEAU",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "reference_performance",
+        "training_curve"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_STRONG_LOSS_OSCILLATION__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_STRONG_LOSS_OSCILLATION",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "training_curve"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_OP_NAN_OR_INF__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "optimization_problem",
+      "scenario_family_id": "ED_OP_NAN_OR_INF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_ACCURACY_MASKS_MACRO_F1",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "class_imbalance",
+      "scenario_family_id": "ED_CI_MINORITY_PERFORMANCE_COLLAPSE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_LABEL_NOISE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_LABEL_NOISE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.label_noise_rate"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_HIGH_DUPLICATE_RATE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_HIGH_DUPLICATE_RATE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.duplicate_rate"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_SPLIT_OVERLAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_SPLIT_OVERLAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "data_quality.split_overlap_rate"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_PREPROCESSING_MISMATCH__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_PREPROCESSING_MISMATCH",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "data_quality_issue",
+      "scenario_family_id": "ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "flags"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_STABLE_CONVERGENCE_SMALL_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction",
+        "training_curve",
+        "validation_curve"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_STRUCTURED_BLOCK",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_TABULAR_REPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_TRACKER_EXPORT",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_CONCISE_NOTE",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_DEBUG_TICKET",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE__PF_NARRATIVE_SUMMARY",
+      "task_type": "experiment_diagnosis",
+      "primary_issue": "no_clear_issue",
+      "scenario_family_id": "ED_NC_BALANCED_CLASSWISE_PERFORMANCE",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "class_counts",
+        "per_class_metric",
+        "accuracy",
+        "macro_f1"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_ACCURACY_MACRO_F1_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_ACCURACY_MACRO_F1_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "accuracy",
+        "macro_f1",
+        "class_counts"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_PRECISION_RECALL_TRADEOFF__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_PRECISION_RECALL_TRADEOFF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "precision",
+        "recall"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_CLASSWISE_PERFORMANCE_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_CLASSWISE_PERFORMANCE_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "per_class_metric"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_STRUCTURED_BLOCK",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_TABULAR_REPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_TRACKER_EXPORT",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_CONCISE_NOTE",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_DEBUG_TICKET",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MI_TRAIN_VALIDATION_GAP__PF_NARRATIVE_SUMMARY",
+      "task_type": "metric_interpretation",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MI_TRAIN_VALIDATION_GAP",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "train_metric",
+        "validation_metric",
+        "metric_direction"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_CLEAR_QUALITY_WINNER__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_CLEAR_QUALITY_WINNER",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_QUALITY_EFFICIENCY_TRADEOFF",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "quality_metric",
+        "quality_direction",
+        "model_a_quality",
+        "model_b_quality",
+        "model_a_latency_ms",
+        "model_b_latency_ms"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_IMBALANCED_METRIC_COMPARISON__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_IMBALANCED_METRIC_COMPARISON",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "model_a_accuracy",
+        "model_a_macro_f1",
+        "model_b_accuracy",
+        "model_b_macro_f1"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_STRUCTURED_BLOCK",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_STRUCTURED_BLOCK",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "structured_block",
+      "render_contract": "Render all required observations as labeled key-value lines under a compact experiment snapshot.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_TABULAR_REPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_TABULAR_REPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "tabular_report",
+      "render_contract": "Render required observations in a compact table-like report with explicit field names and values.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_TRACKER_EXPORT",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_TRACKER_EXPORT",
+      "split": "train",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "tracker_export",
+      "render_contract": "Render observations as an experiment-tracker style run export using explicit key=value fields.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_CONCISE_NOTE",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_CONCISE_NOTE",
+      "split": "validation",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "concise_note",
+      "render_contract": "Render every required observation inside a concise natural-language experiment note.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_DEBUG_TICKET",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_DEBUG_TICKET",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "debug_ticket",
+      "render_contract": "Render the sample as a debugging ticket with explicit Context, Observations, and Question sections.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    },
+    {
+      "template_family_id": "MC_NO_CLEAR_WINNER__PF_NARRATIVE_SUMMARY",
+      "task_type": "model_comparison",
+      "primary_issue": "not_applicable",
+      "scenario_family_id": "MC_NO_CLEAR_WINNER",
+      "presentation_family_id": "PF_NARRATIVE_SUMMARY",
+      "split": "test",
+      "status": "ready",
+      "required_inputs": [
+        "primary_metric",
+        "metric_direction",
+        "model_a_value",
+        "model_b_value"
+      ],
+      "render_mode": "narrative_summary",
+      "render_contract": "Render all required observations inside a continuous narrative run summary without a key-value layout.",
+      "variant_policy": {
+        "numeric_variants_allowed": true,
+        "paraphrase_variants_allowed": true,
+        "variants_must_inherit_split": true,
+        "surface_paraphrase_does_not_create_new_family": true
+      }
+    }
+  ]
+}

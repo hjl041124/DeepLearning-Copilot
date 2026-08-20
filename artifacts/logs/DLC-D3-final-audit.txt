@@ -1,0 +1,99 @@
+===== 1. FULL DATASET VALIDATION（正式数据集验证） =====
+DAY3 FULL DATASET VALIDATION PASSED
+Full Samples（正式样本）： 3180
+Unique Sample IDs（唯一样本 ID）： 3180
+Unique Prompts（唯一提示词）： 3180
+Unique Template Families（唯一模板族）： 144
+Split Distribution（数据划分分布）： {'test': 480, 'train': 2400, 'validation': 300}
+Task Type Distribution（任务类型分布）： {'experiment_diagnosis': 1908, 'metric_interpretation': 636, 'model_comparison': 636}
+Diagnosis Issue Distribution（诊断主要问题分布）： {'class_imbalance': 318, 'data_quality_issue': 318, 'no_clear_issue': 318, 'overfitting': 318, 'optimization_problem': 318, 'underfitting': 318}
+Severity Distribution（严重程度分布）： {'high': 1033, 'medium': 557, 'low': 318, 'not_applicable': 1272}
+Ground Truth Recompute Check（标准答案重计算检查）：PASSED
+Template Leakage Check（模板泄漏检查）：PASSED
+Duplicate Prompt Check（重复提示词检查）：PASSED
+===== 2. LINE COUNTS（数据行数检查） =====
+    3180 data/generated/full_dataset_v1.jsonl
+    2400 data/generated/full_train_v1.jsonl
+     300 data/generated/full_validation_v1.jsonl
+     480 data/generated/full_test_v1.jsonl
+    6360 total
+===== 3. DATASET STATS（数据集统计） =====
+{
+  "total_samples": 3180,
+  "split_distribution": {
+    "test": 480,
+    "train": 2400,
+    "validation": 300
+  },
+  "task_type_distribution": {
+    "experiment_diagnosis": 1908,
+    "metric_interpretation": 636,
+    "model_comparison": 636
+  },
+  "diagnosis_issue_distribution": {
+    "class_imbalance": 318,
+    "data_quality_issue": 318,
+    "no_clear_issue": 318,
+    "overfitting": 318,
+    "optimization_problem": 318,
+    "underfitting": 318
+  },
+  "severity_distribution": {
+    "high": 1033,
+    "medium": 557,
+    "low": 318,
+    "not_applicable": 1272
+  },
+  "unique_template_families": 144,
+  "unique_scenario_families": 24
+}
+===== 4. SHA256 CHECKSUM（文件校验哈希） =====
+bbbc02ec43fd63dc836877c967f1f1469aea6002aea87ec96ebd38ee56dbde9c  data/generated/full_dataset_v1.jsonl
+5abd96ca0e7b12d5e9c5022fbbdef8b8979cb9d88656f161e1f8708e0b2070b6  data/generated/full_train_v1.jsonl
+390fdf610eee53856cab3e7e7a2d45179eb52fde58dff7b7cbd15f4c883a05ef  data/generated/full_validation_v1.jsonl
+e5f12759a805dacf2cd10ebefdb248cb410d8a2dbeedb0350380de2df632a9a2  data/generated/full_test_v1.jsonl
+===== 5. REGRESSION TESTS（回归测试） =====
+DAY3 SAMPLING PLAN VALIDATION PASSED
+Pilot Set（小规模试生成集）： 144
+Full Standard Set（正式标准集）： 3180
+Split Distribution（数据划分分布）： {'validation': 300, 'test': 480, 'train': 2400}
+train Task Type Distribution（任务类型分布）： {'experiment_diagnosis': 1440, 'model_comparison': 480, 'metric_interpretation': 480}
+train Diagnosis Issue Distribution（诊断问题分布）： {'class_imbalance': 240, 'data_quality_issue': 240, 'no_clear_issue': 240, 'overfitting': 240, 'optimization_problem': 240, 'underfitting': 240}
+validation Task Type Distribution（任务类型分布）： {'experiment_diagnosis': 180, 'model_comparison': 60, 'metric_interpretation': 60}
+validation Diagnosis Issue Distribution（诊断问题分布）： {'class_imbalance': 30, 'data_quality_issue': 30, 'no_clear_issue': 30, 'overfitting': 30, 'optimization_problem': 30, 'underfitting': 30}
+test Task Type Distribution（任务类型分布）： {'experiment_diagnosis': 288, 'model_comparison': 96, 'metric_interpretation': 96}
+test Diagnosis Issue Distribution（诊断问题分布）： {'class_imbalance': 48, 'data_quality_issue': 48, 'no_clear_issue': 48, 'overfitting': 48, 'optimization_problem': 48, 'underfitting': 48}
+DAY3 TEMPLATE FAMILY VALIDATION PASSED
+配置文件： /root/autodl-tmp/DeepLearning-Copilot/configs/template_families_v1.json
+Active Scenario Family（活动场景族）： 24
+Presentation Family（呈现结构族）： 6
+Template Family（模板族）： 144
+Task Type（任务类型）分布： {'experiment_diagnosis': 96, 'metric_interpretation': 24, 'model_comparison': 24}
+Split（数据划分）分布： {'train': 72, 'validation': 24, 'test': 48}
+每个 Scenario Family（场景族）的 Split 配置： {'train': 3, 'validation': 1, 'test': 2}
+DAY3 SCENARIO FAMILY VALIDATION PASSED
+配置文件： /root/autodl-tmp/DeepLearning-Copilot/configs/scenario_families_v1.json
+experiment_diagnosis scenario families： 16
+metric_interpretation scenario families： 4
+model_comparison scenario families： 4
+active scenario families 总数： 24
+deferred scenario families： 2
+diagnosis primary issue 分布： {'class_imbalance': 3, 'data_quality_issue': 5, 'no_clear_issue': 2, 'optimization_problem': 2, 'overfitting': 2, 'underfitting': 2}
+metric_accuracy_macro_gap -> metric_interpretation ['large_accuracy_macro_f1_gap']
+metric_precision_recall -> metric_interpretation ['precision_dominates_recall']
+metric_classwise_gap -> metric_interpretation ['large_class_performance_gap']
+metric_train_validation_gap -> metric_interpretation ['strong_generalization_gap']
+model_clear_winner -> model_comparison ['model_a_higher_primary_metric']
+model_quality_efficiency_tradeoff -> model_comparison ['quality_efficiency_tradeoff', 'model_a_higher_primary_metric', 'model_b_lower_latency']
+model_imbalanced_metric -> model_comparison ['model_a_higher_macro_f1']
+model_no_clear_winner -> model_comparison ['no_material_model_difference']
+NON-DIAGNOSIS GROUND TRUTH TESTS PASSED
+=== Day 2 Consistency Check ===
+Task types: 3
+Primary issues: 7
+Feature definitions: 17
+Evidence codes: 30
+Action codes: 33
+
+DAY2 CONFIG CONSISTENCY CHECK PASSED
+===== 6. GIT DIFF CHECK（Git 差异检查） =====
