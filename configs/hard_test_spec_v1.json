@@ -1,0 +1,311 @@
+{
+  "version": "1.0",
+  "description": "Reference-grounded behavioral Hard Test specification for DeepLearning-Copilot.",
+  "policy": {
+    "training_allowed": false,
+    "validation_allowed": false,
+    "evaluation_only": true,
+    "ground_truth_must_be_deterministic_python": true,
+    "llm_must_not_assign_labels": true,
+    "standard_set_samples_may_not_be_reused": true,
+    "threshold_source": "configs/threshold_bands_v1.json",
+    "rule_priority_source": "configs/diagnosis_rules_v1.json",
+    "target_total_samples": 240,
+    "target_samples_per_family": 20,
+    "pair_based_family_sample_count_must_be_even": true
+  },
+  "references": [
+    {
+      "name": "CheckList",
+      "reference_type": "behavioral_testing",
+      "url": "https://aclanthology.org/2020.acl-main.442/",
+      "github": "https://github.com/marcotcr/checklist",
+      "license": "MIT",
+      "usage": [
+        "invariance_test_concept",
+        "directional_expectation_test_concept",
+        "behavioral_slice_design"
+      ],
+      "copied_code": false
+    },
+    {
+      "name": "Hypothesis",
+      "reference_type": "property_based_testing",
+      "url": "https://hypothesis.readthedocs.io/en/latest/",
+      "github": "https://github.com/HypothesisWorks/hypothesis",
+      "license": "MPL-2.0",
+      "usage": [
+        "edge_case_testing",
+        "generator_property_testing",
+        "boundary_stress_testing"
+      ],
+      "copied_code": false
+    },
+    {
+      "name": "Deepchecks",
+      "reference_type": "ml_validation",
+      "url": "https://docs.deepchecks.com/stable/",
+      "github": "https://github.com/deepchecks/deepchecks",
+      "license": "AGPL-3.0",
+      "usage": [
+        "data_integrity_concepts",
+        "train_test_validation_concepts"
+      ],
+      "copied_code": false
+    },
+    {
+      "name": "HELM",
+      "reference_type": "foundation_model_evaluation",
+      "github": "https://github.com/stanford-crfm/helm",
+      "license": "Apache-2.0",
+      "usage": [
+        "standardized_evaluation",
+        "multi_metric_reporting",
+        "scenario_level_reporting"
+      ],
+      "copied_code": false
+    },
+    {
+      "name": "Robustness Gym",
+      "reference_type": "robustness_evaluation",
+      "github": "https://github.com/robustness-gym/robustness-gym",
+      "license": "Apache-2.0",
+      "usage": [
+        "slice_based_evaluation",
+        "subpopulation_reporting"
+      ],
+      "copied_code": false
+    }
+  ],
+  "rule_priority": [
+    "data_quality_issue",
+    "optimization_problem",
+    "class_imbalance",
+    "overfitting",
+    "underfitting",
+    "no_clear_issue"
+  ],
+  "test_property_types": {
+    "directional_boundary": {
+      "reference_basis": "CheckList DIR + property-based boundary testing",
+      "pair_based": true,
+      "pair_size": 2,
+      "pair_relation": "controlled target feature crosses a project threshold and the expected decision changes in the specified direction",
+      "epsilon_candidates": [
+        0.001,
+        0.003,
+        0.005,
+        0.01
+      ]
+    },
+    "invariance_distractor": {
+      "reference_basis": "CheckList INV",
+      "pair_based": true,
+      "pair_size": 2,
+      "pair_relation": "irrelevant metadata changes while the deterministic decision signature remains unchanged",
+      "decision_signature_fields": [
+        "task_type",
+        "primary_issue",
+        "severity",
+        "evidence_codes",
+        "recommended_action_codes"
+      ]
+    },
+    "priority_composition": {
+      "reference_basis": "behavioral composition test + project-specific deterministic rule priority",
+      "pair_based": false,
+      "pair_relation": null,
+      "combination_seen_in_standard_set": false
+    }
+  },
+  "evaluation_metrics": [
+    "overall_strict_accuracy",
+    "group_strict_accuracy",
+    "family_strict_accuracy",
+    "directional_pair_success_rate",
+    "invariance_success_rate",
+    "invariance_violation_rate",
+    "priority_composition_accuracy",
+    "json_schema_valid_rate"
+  ],
+  "hard_test_groups": [
+    {
+      "group_id": "HTG_DIRECTIONAL_BOUNDARY",
+      "test_property_type": "directional_boundary",
+      "target_samples": 60,
+      "families": [
+        {
+          "hard_test_family_id": "HT_DIR_GENERALIZATION_GAP",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "pair_count": 10,
+          "threshold_feature": "relative_generalization_gap",
+          "worse_direction": "higher",
+          "controlled_supporting_evidence": [
+            "late_degradation"
+          ],
+          "expected_below_primary_issue": "no_clear_issue",
+          "expected_above_primary_issue": "overfitting",
+          "base_scenario_family_ids": [
+            "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+          ]
+        },
+        {
+          "hard_test_family_id": "HT_DIR_CLASS_IMBALANCE_RATIO",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "pair_count": 10,
+          "threshold_feature": "class_imbalance_ratio",
+          "worse_direction": "lower",
+          "controlled_supporting_evidence": [
+            "class_performance_gap"
+          ],
+          "expected_below_primary_issue": "class_imbalance",
+          "expected_above_primary_issue": "no_clear_issue",
+          "base_scenario_family_ids": [
+            "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE"
+          ]
+        },
+        {
+          "hard_test_family_id": "HT_DIR_LABEL_NOISE",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "pair_count": 10,
+          "threshold_feature": "label_noise_rate",
+          "worse_direction": "higher",
+          "controlled_supporting_evidence": [],
+          "expected_below_primary_issue": "no_clear_issue",
+          "expected_above_primary_issue": "data_quality_issue",
+          "base_scenario_family_ids": [
+            "ED_DQ_HIGH_LABEL_NOISE"
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "HTG_INVARIANCE_DISTRACTOR",
+      "test_property_type": "invariance_distractor",
+      "target_samples": 60,
+      "families": [
+        {
+          "hard_test_family_id": "HT_INV_OVERFITTING_METADATA",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "pair_count": 10,
+          "base_scenario_family_ids": [
+            "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+          ],
+          "perturbation_fields": [
+            "gpu_name",
+            "seed",
+            "run_name",
+            "batch_size",
+            "optimizer_name"
+          ],
+          "expected_relation": "decision_signature_invariant"
+        },
+        {
+          "hard_test_family_id": "HT_INV_DATA_QUALITY_METADATA",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "pair_count": 10,
+          "base_scenario_family_ids": [
+            "ED_DQ_HIGH_LABEL_NOISE"
+          ],
+          "perturbation_fields": [
+            "gpu_name",
+            "seed",
+            "run_name",
+            "batch_size",
+            "optimizer_name"
+          ],
+          "expected_relation": "decision_signature_invariant"
+        },
+        {
+          "hard_test_family_id": "HT_INV_MODEL_COMPARISON_METADATA",
+          "task_type": "model_comparison",
+          "target_samples": 20,
+          "pair_count": 10,
+          "base_scenario_family_ids": [
+            "MC_CLEAR_QUALITY_WINNER"
+          ],
+          "perturbation_fields": [
+            "gpu_name",
+            "seed",
+            "training_epochs",
+            "framework_version",
+            "checkpoint_name"
+          ],
+          "expected_relation": "decision_signature_invariant"
+        }
+      ]
+    },
+    {
+      "group_id": "HTG_PRIORITY_COMPOSITION",
+      "test_property_type": "priority_composition",
+      "target_samples": 120,
+      "families": [
+        {
+          "hard_test_family_id": "HT_PC_DQ_OVERFITTING",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_DQ_HIGH_LABEL_NOISE",
+            "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+          ],
+          "expected_primary_issue": "data_quality_issue"
+        },
+        {
+          "hard_test_family_id": "HT_PC_OPT_OVERFITTING",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_OP_NAN_OR_INF",
+            "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+          ],
+          "expected_primary_issue": "optimization_problem"
+        },
+        {
+          "hard_test_family_id": "HT_PC_CI_OVERFITTING",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+            "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+          ],
+          "expected_primary_issue": "class_imbalance"
+        },
+        {
+          "hard_test_family_id": "HT_PC_DQ_OPTIMIZATION",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_DQ_HIGH_LABEL_NOISE",
+            "ED_OP_NAN_OR_INF"
+          ],
+          "expected_primary_issue": "data_quality_issue"
+        },
+        {
+          "hard_test_family_id": "HT_PC_DQ_CLASS_IMBALANCE",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_DQ_HIGH_LABEL_NOISE",
+            "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE"
+          ],
+          "expected_primary_issue": "data_quality_issue"
+        },
+        {
+          "hard_test_family_id": "HT_PC_OPT_UNDERFITTING",
+          "task_type": "experiment_diagnosis",
+          "target_samples": 20,
+          "component_scenario_family_ids": [
+            "ED_OP_NAN_OR_INF",
+            "ED_UF_LOW_SCORES_VS_REFERENCE"
+          ],
+          "expected_primary_issue": "optimization_problem"
+        }
+      ]
+    }
+  ]
+}

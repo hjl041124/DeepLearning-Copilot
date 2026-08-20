@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+
+  "policy": {
+    "same_parser_for_all_models": true,
+    "same_schema_validator_for_all_models": true,
+    "same_failure_policy_for_all_models": true,
+    "explanation_exact_match": false,
+    "evidence_as_set": true,
+    "recommendation_as_set": true
+  },
+
+  "core_prediction_fields": [
+    "task_type",
+    "primary_issue",
+    "severity",
+    "evidence_codes",
+    "recommended_action_codes"
+  ],
+
+  "standard_metrics": [
+    "parse_success_rate",
+    "json_schema_valid_rate",
+    "core_exact_match_rate",
+    "primary_issue_accuracy",
+    "primary_issue_macro_f1",
+    "severity_accuracy",
+    "evidence_exact_set_accuracy",
+    "evidence_micro_f1",
+    "recommendation_exact_set_accuracy",
+    "recommendation_micro_f1",
+    "structural_hallucination_rate"
+  ],
+
+  "hard_test_metrics": [
+    "hard_core_exact_match_rate",
+    "directional_pair_success_rate",
+    "invariance_consistency_rate",
+    "invariance_correct_pair_rate",
+    "invariance_violation_rate",
+    "priority_composition_accuracy"
+  ],
+
+  "deferred_metrics": [
+    "free_text_explanation_quality",
+    "numeric_faithfulness"
+  ]
+}
