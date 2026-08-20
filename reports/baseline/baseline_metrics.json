@@ -1,0 +1,22 @@
+{
+  "standard_test": {
+    "total_samples": 480,
+    "parse_success_rate": 1.0,
+    "schema_valid_rate": 1.0,
+    "core_exact_match_rate": 0.0,
+    "primary_issue_accuracy": 1.0,
+    "primary_issue_macro_f1": 1.0,
+    "evidence_exact_set_accuracy": 0.08958333333333333,
+    "recommendation_exact_set_accuracy": 0.0
+  },
+  "hard_test": {
+    "total_samples": 240,
+    "parse_success_rate": 1.0,
+    "schema_valid_rate": 1.0,
+    "core_exact_match_rate": 0.0,
+    "primary_issue_accuracy": 1.0,
+    "primary_issue_macro_f1": 1.0,
+    "evidence_exact_set_accuracy": 0.0,
+    "recommendation_exact_set_accuracy": 0.0
+  }
+}

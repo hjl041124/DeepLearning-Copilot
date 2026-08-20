@@ -1,0 +1,43 @@
+{
+  "base_model": "Qwen3-4B-Instruct-2507",
+
+  "quantization": {
+    "load_in_4bit": true,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_compute_dtype": "bfloat16",
+    "bnb_4bit_use_double_quant": true
+  },
+
+  "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ]
+  },
+
+  "training": {
+    "dataset": "data/generated/sft_pilot_v1.jsonl",
+
+    "output_dir": "models/qwen3-4b-dlcopilot-qlora",
+
+    "num_train_epochs": 3,
+
+    "learning_rate": 0.0002,
+
+    "per_device_train_batch_size": 2,
+
+    "gradient_accumulation_steps": 8,
+
+    "warmup_ratio": 0.03,
+
+    "logging_steps": 10,
+
+    "save_steps": 100
+  }
+}

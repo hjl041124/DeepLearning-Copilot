@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+
+  "purpose": "Task alignment SFT dataset for DeepLearning-Copilot.",
+
+  "base_model": "Qwen3-4B-Instruct-2507",
+
+  "design_principles": [
+    "schema_alignment",
+    "evidence_grounding",
+    "recommendation_mapping",
+    "hard_reasoning"
+  ],
+
+  "target_samples": 10000,
+
+  "composition": {
+    "schema_alignment": 0.40,
+    "evidence_grounding": 0.30,
+    "recommendation_mapping": 0.20,
+    "hard_reasoning": 0.10
+  },
+
+  "output_format": {
+    "format": "chat_messages",
+    "required_roles": [
+      "system",
+      "user",
+      "assistant"
+    ]
+  },
+
+  "assistant_output_constraints": {
+    "must_be_json": true,
+    "must_follow_output_schema": true,
+    "must_use_project_vocabulary": true,
+    "free_form_label_text_forbidden": true
+  },
+
+  "split_policy": {
+    "split_unit": "template_family_id",
+    "random_sample_split": false,
+    "template_leakage_forbidden": true
+  },
+
+  "evaluation_policy": {
+    "validation_set_is_unseen_template_family": true,
+    "test_set_is_unseen_template_family": true
+  },
+
+  "data_sources": [
+    {
+      "source": "project_generated_standard_dataset",
+      "usage": "instruction_alignment"
+    },
+    {
+      "source": "project_generated_hard_test_patterns",
+      "usage": "hard_reasoning_extension"
+    }
+  ]
+}

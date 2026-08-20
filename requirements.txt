@@ -11,3 +11,4 @@ trl==1.9.1
 bitsandbytes==0.50.0
 datasets==5.0.1
 jsonschema==4.26.0
+hypothesis==6.165.1

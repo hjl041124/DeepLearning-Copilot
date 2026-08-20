@@ -1,0 +1,45 @@
+{
+  "version": "2.0",
+
+  "purpose": "Hard reasoning focused SFT dataset for DeepLearning-Copilot.",
+
+  "base_model": "Qwen3-4B-Instruct-2507",
+
+  "target_samples": 4000,
+
+  "composition": {
+    "schema_alignment": 0.30,
+    "evidence_grounding": 0.25,
+    "recommendation_mapping": 0.15,
+    "hard_reasoning": 0.30
+  },
+
+  "hard_reasoning_breakdown": {
+    "directional_boundary": 0.10,
+    "priority_composition": 0.10,
+    "invariance_distractor": 0.10
+  },
+
+  "training_objective": [
+    "schema_following",
+    "evidence_grounding",
+    "action_mapping",
+    "boundary_reasoning",
+    "priority_reasoning",
+    "invariance_reasoning"
+  ],
+
+  "split_policy": {
+    "split_unit": "template_family_id",
+    "random_split": false,
+    "template_leakage_forbidden": true
+  },
+
+  "evaluation_target": [
+    "hard_test_primary_issue_accuracy",
+    "hard_test_core_exact_match",
+    "directional_pair_success_rate",
+    "priority_composition_accuracy",
+    "invariance_consistency_rate"
+  ]
+}

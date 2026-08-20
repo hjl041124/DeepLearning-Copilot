@@ -1,0 +1,660 @@
+
+==========================================================================================
+HARD TEST FAMILY 1
+Hard Test Family（困难测试族）： HT_DIR_CLASS_IMBALANCE_RATIO
+Test Property（测试属性）： directional_boundary
+Pair ID（样本对 ID）： HT_DIR_CLASS_IMBALANCE_RATIO_PAIR_00
+Pair Member（样本对成员）： below
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-f95f49cf
+dataset_alias: vision_set_alpha
+
+class_counts: [1000, 99, 700]
+per_class_metric: [0.9200, 0.5000, 0.8400]
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_class_performance_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics",
+    "collect_more_minority_samples"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_class_performance_gap."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "threshold_feature": "class_imbalance_ratio",
+  "threshold": 0.1,
+  "epsilon": 0.001,
+  "expected_primary_issue": "class_imbalance",
+  "expected_relation": "directional_threshold_crossing"
+}
+
+==========================================================================================
+HARD TEST FAMILY 2
+Hard Test Family（困难测试族）： HT_DIR_GENERALIZATION_GAP
+Test Property（测试属性）： directional_boundary
+Pair ID（样本对 ID）： HT_DIR_GENERALIZATION_GAP_PAIR_00
+Pair Member（样本对成员）： above
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-30d9e373
+dataset_alias: vision_set_alpha
+
+metric_name: accuracy
+metric_direction: higher_is_better
+train_metric: 0.9000
+validation_metric: 0.7641
+validation_curve: [0.6800, 0.7600, 0.8300, 0.8800, 0.8500, 0.8100, 0.7641]
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "overfitting",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_generalization_gap",
+    "late_validation_degradation"
+  ],
+  "recommended_action_codes": [
+    "increase_regularization",
+    "use_early_stopping",
+    "add_data_augmentation"
+  ],
+  "explanation": "The primary diagnosis is overfitting. The decision is supported by: strong_generalization_gap, late_validation_degradation."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "threshold_feature": "relative_generalization_gap",
+  "threshold": 0.15,
+  "epsilon": 0.001,
+  "expected_primary_issue": "overfitting",
+  "expected_relation": "directional_threshold_crossing"
+}
+
+==========================================================================================
+HARD TEST FAMILY 3
+Hard Test Family（困难测试族）： HT_DIR_LABEL_NOISE
+Test Property（测试属性）： directional_boundary
+Pair ID（样本对 ID）： HT_DIR_LABEL_NOISE_PAIR_00
+Pair Member（样本对成员）： above
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-320dddd4
+dataset_alias: benchmark_delta
+
+data_quality.label_noise_rate: 0.2010
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The primary diagnosis is data_quality_issue. The decision is supported by: high_label_noise."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "threshold_feature": "label_noise_rate",
+  "threshold": 0.2,
+  "epsilon": 0.001,
+  "expected_primary_issue": "data_quality_issue",
+  "expected_relation": "directional_threshold_crossing"
+}
+
+==========================================================================================
+HARD TEST FAMILY 4
+Hard Test Family（困难测试族）： HT_INV_DATA_QUALITY_METADATA
+Test Property（测试属性）： invariance_distractor
+Pair ID（样本对 ID）： HT_INV_DATA_QUALITY_METADATA_PAIR_00
+Pair Member（样本对成员）： base
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-d01627ae
+dataset_alias: experiment_gamma
+
+data_quality.label_noise_rate: 0.2600
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The primary diagnosis is data_quality_issue. The decision is supported by: high_label_noise."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "decision_signature_invariant",
+  "perturbation_fields": [
+    "gpu_name",
+    "seed",
+    "run_name",
+    "batch_size",
+    "optimizer_name"
+  ],
+  "applied_metadata": null
+}
+
+==========================================================================================
+HARD TEST FAMILY 5
+Hard Test Family（困难测试族）： HT_INV_MODEL_COMPARISON_METADATA
+Test Property（测试属性）： invariance_distractor
+Pair ID（样本对 ID）： HT_INV_MODEL_COMPARISON_METADATA_PAIR_00
+Pair Member（样本对成员）： base
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-2b76375c
+dataset_alias: experiment_gamma
+
+metric_direction: higher_is_better
+primary_metric: macro_f1
+model_a_value: 0.8890
+model_b_value: 0.7940
+
+请比较两个模型，并根据给定指标说明应该如何选择。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "model_comparison",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "model_a_higher_primary_metric"
+  ],
+  "recommended_action_codes": [
+    "prefer_model_a"
+  ],
+  "explanation": "Model A is the clear winner on the specified primary metric macro_f1. The relative difference is 0.107."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "decision_signature_invariant",
+  "perturbation_fields": [
+    "gpu_name",
+    "seed",
+    "training_epochs",
+    "framework_version",
+    "checkpoint_name"
+  ],
+  "applied_metadata": null
+}
+
+==========================================================================================
+HARD TEST FAMILY 6
+Hard Test Family（困难测试族）： HT_INV_OVERFITTING_METADATA
+Test Property（测试属性）： invariance_distractor
+Pair ID（样本对 ID）： HT_INV_OVERFITTING_METADATA_PAIR_00
+Pair Member（样本对成员）： perturbed
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-ee3cd147
+dataset_alias: experiment_gamma
+
+metric_name: accuracy
+metric_direction: higher_is_better
+train_metric: 0.9490
+validation_metric: 0.6650
+validation_curve: [0.6450, 0.7150, 0.7750, 0.8250, 0.7950, 0.7550, 0.6650]
+
+Additional Metadata（附加元数据）:
+- batch_size: 128
+- gpu_name: A100
+- optimizer_name: SGD
+- run_name: run_4635
+- seed: 51323
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "overfitting",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_generalization_gap",
+    "late_validation_degradation"
+  ],
+  "recommended_action_codes": [
+    "increase_regularization",
+    "use_early_stopping",
+    "add_data_augmentation"
+  ],
+  "explanation": "The primary diagnosis is overfitting. The decision is supported by: strong_generalization_gap, late_validation_degradation."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "decision_signature_invariant",
+  "perturbation_fields": [
+    "gpu_name",
+    "seed",
+    "run_name",
+    "batch_size",
+    "optimizer_name"
+  ],
+  "applied_metadata": {
+    "gpu_name": "A100",
+    "seed": 51323,
+    "run_name": "run_4635",
+    "batch_size": 128,
+    "optimizer_name": "SGD"
+  }
+}
+
+==========================================================================================
+HARD TEST FAMILY 7
+Hard Test Family（困难测试族）： HT_PC_CI_OVERFITTING
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+[experiment_review]
+case_ref=HT-0ece1c81
+dataset_alias=experiment_gamma
+metric_name=accuracy
+metric_direction=higher_is_better
+train_metric=0.9330
+validation_metric=0.6770
+validation_curve=[0.6510, 0.7210, 0.7810, 0.8310, 0.8010, 0.7610, 0.6770]
+class_counts=[1124, 59, 684]
+per_class_metric=[0.9370, 0.3940, 0.8570]
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_class_performance_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics",
+    "collect_more_minority_samples"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_class_performance_gap."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE",
+    "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+  ],
+  "expected_primary_issue": "class_imbalance"
+}
+
+==========================================================================================
+HARD TEST FAMILY 8
+Hard Test Family（困难测试族）： HT_PC_DQ_CLASS_IMBALANCE
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+Experiment Incident Report（实验问题报告）
+
+Context（背景）:
+case_ref: HT-349c990b
+dataset_alias: dataset_epsilon
+
+Observed Evidence（观测证据）:
+- class_counts: [1008, 56, 838]
+- per_class_metric: [0.9350, 0.4930, 0.8220]
+- data_quality.label_noise_rate: 0.2910
+
+Request（分析请求）:
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The primary diagnosis is data_quality_issue. The decision is supported by: high_label_noise."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_DQ_HIGH_LABEL_NOISE",
+    "ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE"
+  ],
+  "expected_primary_issue": "data_quality_issue"
+}
+
+==========================================================================================
+HARD TEST FAMILY 9
+Hard Test Family（困难测试族）： HT_PC_DQ_OPTIMIZATION
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+Experiment Challenge Note（实验挑战记录）
+
+case_ref: HT-b656f23d
+dataset_alias: experiment_gamma
+
+data_quality.label_noise_rate: 0.2440
+flags.nan_or_inf: True
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The primary diagnosis is data_quality_issue. The decision is supported by: high_label_noise."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_DQ_HIGH_LABEL_NOISE",
+    "ED_OP_NAN_OR_INF"
+  ],
+  "expected_primary_issue": "data_quality_issue"
+}
+
+==========================================================================================
+HARD TEST FAMILY 10
+Hard Test Family（困难测试族）： HT_PC_DQ_OVERFITTING
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+请帮我复核这次实验。记录编号为 HT-1cc85f1f，数据集代号为 experiment_gamma。metric_name 为 accuracy；metric_direction 为 higher_is_better；train_metric 为 0.9570；validation_metric 为 0.6830；validation_curve 为 [0.6570, 0.7270, 0.7870, 0.8370, 0.8070, 0.7670, 0.6830]；data_quality.label_noise_rate 为 0.2700。
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The primary diagnosis is data_quality_issue. The decision is supported by: high_label_noise."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_DQ_HIGH_LABEL_NOISE",
+    "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+  ],
+  "expected_primary_issue": "data_quality_issue"
+}
+
+==========================================================================================
+HARD TEST FAMILY 11
+Hard Test Family（困难测试族）： HT_PC_OPT_OVERFITTING
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+[experiment_review]
+case_ref=HT-7e4f15ed
+dataset_alias=dataset_epsilon
+metric_name=accuracy
+metric_direction=higher_is_better
+train_metric=0.9670
+validation_metric=0.6790
+validation_curve=[0.6480, 0.7180, 0.7780, 0.8280, 0.7980, 0.7580, 0.6790]
+flags.nan_or_inf=True
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "optimization_problem",
+  "severity": "high",
+  "evidence_codes": [
+    "nan_or_inf"
+  ],
+  "recommended_action_codes": [
+    "inspect_optimizer_settings",
+    "check_numeric_stability",
+    "reduce_learning_rate"
+  ],
+  "explanation": "The primary diagnosis is optimization_problem. The decision is supported by: nan_or_inf."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_OP_NAN_OR_INF",
+    "ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION"
+  ],
+  "expected_primary_issue": "optimization_problem"
+}
+
+==========================================================================================
+HARD TEST FAMILY 12
+Hard Test Family（困难测试族）： HT_PC_OPT_UNDERFITTING
+Test Property（测试属性）： priority_composition
+Pair ID（样本对 ID）： None
+Pair Member（样本对成员）： None
+
+--- PROMPT（提示词） ---
+[experiment_review]
+case_ref=HT-7cab5763
+dataset_alias=classification_beta
+metric_name=accuracy
+metric_direction=higher_is_better
+train_metric=0.6180
+validation_metric=0.5950
+reference_performance=0.8280
+flags.nan_or_inf=True
+
+请判断这个实验最主要的问题，说明依据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "optimization_problem",
+  "severity": "high",
+  "evidence_codes": [
+    "nan_or_inf"
+  ],
+  "recommended_action_codes": [
+    "inspect_optimizer_settings",
+    "check_numeric_stability",
+    "reduce_learning_rate"
+  ],
+  "explanation": "The primary diagnosis is optimization_problem. The decision is supported by: nan_or_inf."
+}
+
+--- PROPERTY METADATA（测试属性元数据） ---
+{
+  "expected_relation": "rule_priority",
+  "component_scenario_family_ids": [
+    "ED_OP_NAN_OR_INF",
+    "ED_UF_LOW_SCORES_VS_REFERENCE"
+  ],
+  "expected_primary_issue": "optimization_problem"
+}

@@ -1,0 +1,28 @@
+{
+  "model_name": "Qwen3-4B-Instruct-2507",
+
+  "model_path": "models/Qwen3-4B-Instruct-2507",
+
+  "framework": "transformers",
+
+  "task": "experiment_diagnosis",
+
+  "generation": {
+    "do_sample": false,
+    "temperature": 0.0,
+    "max_new_tokens": 512
+  },
+
+  "evaluation_sets": [
+    {
+      "name": "standard_test",
+      "path": "data/generated/full_test_v1.jsonl"
+    },
+    {
+      "name": "hard_test",
+      "path": "data/generated/hard_test_v1.jsonl"
+    }
+  ],
+
+  "output_dir": "reports/baseline"
+}

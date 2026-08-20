@@ -1,0 +1,987 @@
+
+==========================================================================================
+SCENARIO 1
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+中文含义： 高准确率掩盖较低的宏平均 F1
+Presentation Family（呈现结构族）： PF_STRUCTURED_BLOCK
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验快照（Experiment Snapshot）
+- 各类别样本量（class_counts）: [1281, 75, 696]
+- 准确率（accuracy）: 0.892
+- 宏平均 F1（macro_f1）: 0.638
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "Although accuracy reaches 0.892, macro-F1 drops to 0.638. Combined with the strongly skewed class counts (75 to 1281), this suggests the model performs well on dominant classes while underrepresented classes are not being handled equally well."
+}
+
+==========================================================================================
+SCENARIO 2
+Scenario Family（场景族）： ED_CI_MINORITY_PERFORMANCE_COLLAPSE
+中文含义： 少数类样本不足且性能明显坍塌
+Presentation Family（呈现结构族）： PF_CONCISE_NOTE
+Split（数据划分）： validation
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+我在检查一次深度学习实验。各类别样本量（class_counts）为[1296, 34, 741]，逐类别指标（per_class_metric）为[0.929, 0.450, 0.849]。
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_class_performance_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics",
+    "collect_more_minority_samples"
+  ],
+  "explanation": "Class support is strongly uneven (34 vs 1296 samples), and the class-wise metric gap reaches 0.479. This indicates that the minority-class imbalance is affecting predictive performance."
+}
+
+==========================================================================================
+SCENARIO 3
+Scenario Family（场景族）： ED_CI_SKEW_WITH_CLASSWISE_COLLAPSE
+中文含义： 类别数量偏斜并伴随逐类别性能坍塌
+Presentation Family（呈现结构族）： PF_DEBUG_TICKET
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+Debug Ticket（调试工单）
+
+Context（背景）:
+- 模型训练或评估结果需要进一步分析。
+
+Observations（观测结果）:
+- 各类别样本量（class_counts）: [1162, 61, 653]
+- 逐类别指标（per_class_metric）: [0.927, 0.382, 0.844]
+
+Question（问题）:
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_class_performance_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics",
+    "collect_more_minority_samples"
+  ],
+  "explanation": "The smallest class contains only 61 samples compared with 1162 in the largest class, giving a min/max ratio of 0.052. Class-level performance also differs by 0.545. The distribution skew is therefore accompanied by clear performance damage."
+}
+
+==========================================================================================
+SCENARIO 4
+Scenario Family（场景族）： ED_DQ_EXPLICIT_DISTRIBUTION_SHIFT
+中文含义： 明确存在数据分布偏移
+Presentation Family（呈现结构族）： PF_TABULAR_REPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验指标报告（Experiment Metrics Report）
+
+| 实验字段 | 数值 / 状态 |
+| --- | --- |
+| 实验状态标记（flags） | {"distribution_shift_detected": true, "gradient_instability": false, "loss_divergence": false, "nan_or_inf": false, "preprocessing_mismatch": false} |
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "distribution_shift_detected"
+  ],
+  "recommended_action_codes": [
+    "investigate_distribution_shift"
+  ],
+  "explanation": "A deterministic distribution-shift flag is present. The training and evaluation data therefore should not be treated as coming from the same distribution, making data quality and dataset compatibility the primary concern."
+}
+
+==========================================================================================
+SCENARIO 5
+Scenario Family（场景族）： ED_DQ_HIGH_DUPLICATE_RATE
+中文含义： 重复样本率过高
+Presentation Family（呈现结构族）： PF_NARRATIVE_SUMMARY
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+在最近一次实验运行中，重复样本率（duplicate_rate）记录为0.270。这些结果需要进一步分析。
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_duplicate_rate"
+  ],
+  "recommended_action_codes": [
+    "remove_duplicates"
+  ],
+  "explanation": "The duplicate-sample rate is 0.270, which is clearly elevated under the project rules. A large amount of duplicated data can distort effective sample diversity and should be cleaned before interpreting model behavior."
+}
+
+==========================================================================================
+SCENARIO 6
+Scenario Family（场景族）： ED_DQ_HIGH_LABEL_NOISE
+中文含义： 标签噪声率过高
+Presentation Family（呈现结构族）： PF_TRACKER_EXPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+下面是一段 Experiment Tracker（实验跟踪器）的运行摘要：
+
+[run_summary]
+run_id=pilot_f187d67aded4
+data_quality.label_noise_rate=0.271
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "high_label_noise"
+  ],
+  "recommended_action_codes": [
+    "clean_noisy_labels"
+  ],
+  "explanation": "The measured label-noise rate is 0.271, which lies inside the project's clearly abnormal sampling region. The main concern is therefore data quality rather than model capacity or normal optimization behavior."
+}
+
+==========================================================================================
+SCENARIO 7
+Scenario Family（场景族）： ED_DQ_PREPROCESSING_MISMATCH
+中文含义： 不同数据划分的预处理不一致
+Presentation Family（呈现结构族）： PF_STRUCTURED_BLOCK
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验快照（Experiment Snapshot）
+- 实验状态标记（flags）: {"distribution_shift_detected": false, "gradient_instability": false, "loss_divergence": false, "nan_or_inf": false, "preprocessing_mismatch": true}
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "preprocessing_mismatch"
+  ],
+  "recommended_action_codes": [
+    "align_preprocessing"
+  ],
+  "explanation": "The run explicitly reports inconsistent preprocessing between data splits. This can create artificial train-validation differences, so preprocessing alignment should be fixed before drawing conclusions about the model."
+}
+
+==========================================================================================
+SCENARIO 8
+Scenario Family（场景族）： ED_DQ_SPLIT_OVERLAP
+中文含义： 训练与验证划分存在样本重叠
+Presentation Family（呈现结构族）： PF_CONCISE_NOTE
+Split（数据划分）： validation
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+我在检查一次深度学习实验。跨划分重叠率（split_overlap_rate）为0.028。
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "data_quality_issue",
+  "severity": "medium",
+  "evidence_codes": [
+    "split_overlap_detected"
+  ],
+  "recommended_action_codes": [
+    "fix_split_overlap"
+  ],
+  "explanation": "The measured train-validation overlap rate is 0.028. Because evaluation samples appear across data splits, the reported validation result may be overly optimistic and the split should be repaired."
+}
+
+==========================================================================================
+SCENARIO 9
+Scenario Family（场景族）： ED_NC_BALANCED_CLASSWISE_PERFORMANCE
+中文含义： 类别均衡且逐类别性能接近
+Presentation Family（呈现结构族）： PF_DEBUG_TICKET
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+Debug Ticket（调试工单）
+
+Context（背景）:
+- 模型训练或评估结果需要进一步分析。
+
+Observations（观测结果）:
+- 各类别样本量（class_counts）: [464, 481, 479]
+- 逐类别指标（per_class_metric）: [0.831, 0.800, 0.807]
+- 准确率（accuracy）: 0.824
+- 宏平均 F1（macro_f1）: 0.803
+
+Question（问题）:
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "no_clear_issue",
+  "severity": "low",
+  "evidence_codes": [
+    "no_strong_diagnostic_rule_triggered"
+  ],
+  "recommended_action_codes": [
+    "continue_monitoring"
+  ],
+  "explanation": "Class counts are similar (464 to 481) and class-wise performance differs by only 0.031. Accuracy and macro-F1 are also close, so there is no strong evidence of class imbalance or another clear diagnostic issue."
+}
+
+==========================================================================================
+SCENARIO 10
+Scenario Family（场景族）： ED_NC_STABLE_CONVERGENCE_SMALL_GAP
+中文含义： 稳定收敛且训练验证差距较小
+Presentation Family（呈现结构族）： PF_TABULAR_REPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验指标报告（Experiment Metrics Report）
+
+| 实验字段 | 数值 / 状态 |
+| --- | --- |
+| 训练指标（train_metric） | 0.853 |
+| 验证指标（validation_metric） | 0.840 |
+| 指标方向（metric_direction） | higher_is_better |
+| 训练曲线（training_curve） | [0.673, 0.733, 0.778, 0.813, 0.833, 0.844, 0.853] |
+| 验证曲线（validation_curve） | [0.670, 0.730, 0.770, 0.804, 0.823, 0.833, 0.840] |
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "no_clear_issue",
+  "severity": "low",
+  "evidence_codes": [
+    "no_strong_diagnostic_rule_triggered"
+  ],
+  "recommended_action_codes": [
+    "continue_monitoring"
+  ],
+  "explanation": "Training and validation performance are close (0.853 vs 0.840), with a relative gap of about 0.015. Both curves improve smoothly and there is no strong degradation, oscillation, or data-quality signal, so no clear issue is detected."
+}
+
+==========================================================================================
+SCENARIO 11
+Scenario Family（场景族）： ED_OF_GENERALIZATION_GAP_LATE_DEGRADATION
+中文含义： 泛化差距明显 + 后期验证性能退化
+Presentation Family（呈现结构族）： PF_NARRATIVE_SUMMARY
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+在最近一次实验运行中，训练指标（train_metric）记录为0.961；验证指标（validation_metric）记录为0.699；指标方向（metric_direction）记录为higher_is_better；验证曲线（validation_curve）记录为[0.638, 0.708, 0.768, 0.818, 0.788, 0.748, 0.699]。这些结果需要进一步分析。
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "overfitting",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_generalization_gap",
+    "late_validation_degradation"
+  ],
+  "recommended_action_codes": [
+    "increase_regularization",
+    "use_early_stopping",
+    "add_data_augmentation"
+  ],
+  "explanation": "Training performance reaches 0.961, while validation performance ends at 0.699. The relative gap is about 0.273, and validation performance falls from a best value of 0.818. This is strong evidence of overfitting."
+}
+
+==========================================================================================
+SCENARIO 12
+Scenario Family（场景族）： ED_OF_VALIDATION_LOSS_RISES
+中文含义： 验证损失先下降后重新上升
+Presentation Family（呈现结构族）： PF_TRACKER_EXPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+下面是一段 Experiment Tracker（实验跟踪器）的运行摘要：
+
+[run_summary]
+run_id=pilot_b954508203aa
+train_metric=0.179
+validation_metric=0.453
+metric_direction=lower_is_better
+validation_curve=[0.609, 0.489, 0.379, 0.269, 0.309, 0.359, 0.453]
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "overfitting",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_generalization_gap",
+    "late_validation_degradation"
+  ],
+  "recommended_action_codes": [
+    "increase_regularization",
+    "use_early_stopping",
+    "add_data_augmentation"
+  ],
+  "explanation": "Training loss is 0.179, while validation loss reaches a minimum near 0.269 and later rises to 0.453. The late validation deterioration while training remains strong is characteristic of overfitting."
+}
+
+==========================================================================================
+SCENARIO 13
+Scenario Family（场景族）： ED_OP_NAN_OR_INF
+中文含义： 训练出现 NaN / Inf
+Presentation Family（呈现结构族）： PF_STRUCTURED_BLOCK
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验快照（Experiment Snapshot）
+- 实验状态标记（flags）: {"distribution_shift_detected": false, "gradient_instability": false, "loss_divergence": false, "nan_or_inf": true, "preprocessing_mismatch": false}
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "optimization_problem",
+  "severity": "high",
+  "evidence_codes": [
+    "nan_or_inf"
+  ],
+  "recommended_action_codes": [
+    "inspect_optimizer_settings",
+    "check_numeric_stability",
+    "reduce_learning_rate"
+  ],
+  "explanation": "The training run explicitly contains a NaN or Inf signal. This is a direct numerical-instability indicator, so the primary issue is an optimization problem rather than a normal convergence pattern."
+}
+
+==========================================================================================
+SCENARIO 14
+Scenario Family（场景族）： ED_OP_STRONG_LOSS_OSCILLATION
+中文含义： 训练损失强烈震荡
+Presentation Family（呈现结构族）： PF_CONCISE_NOTE
+Split（数据划分）： validation
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+我在检查一次深度学习实验。训练曲线（training_curve）为[1.249, 0.520, 1.209, 0.540, 1.169, 0.560, 1.129, 0.570]。
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "optimization_problem",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_loss_oscillation"
+  ],
+  "recommended_action_codes": [
+    "inspect_optimizer_settings",
+    "reduce_learning_rate"
+  ],
+  "explanation": "Training loss repeatedly moves between approximately 0.520 and 1.249 instead of decreasing smoothly. The large repeated swings indicate unstable optimization rather than normal small fluctuations."
+}
+
+==========================================================================================
+SCENARIO 15
+Scenario Family（场景族）： ED_UF_LOW_SCORES_VS_REFERENCE
+中文含义： 训练和验证性能均明显低于参考水平
+Presentation Family（呈现结构族）： PF_DEBUG_TICKET
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+Debug Ticket（调试工单）
+
+Context（背景）:
+- 模型训练或评估结果需要进一步分析。
+
+Observations（观测结果）:
+- 训练指标（train_metric）: 0.618
+- 验证指标（validation_metric）: 0.600
+- 指标方向（metric_direction）: higher_is_better
+- 参考性能（reference_performance）: 0.828
+
+Question（问题）:
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "underfitting",
+  "severity": "medium",
+  "evidence_codes": [
+    "large_reference_performance_shortfall",
+    "small_train_validation_gap"
+  ],
+  "recommended_action_codes": [
+    "increase_model_capacity",
+    "train_longer",
+    "improve_feature_representation"
+  ],
+  "explanation": "Training (0.618) and validation (0.600) remain close to each other, but both are well below the explicit reference performance of 0.828. The small generalization gap together with the large reference shortfall supports underfitting."
+}
+
+==========================================================================================
+SCENARIO 16
+Scenario Family（场景族）： ED_UF_REFERENCE_SHORTFALL_PLATEAU
+中文含义： 参考性能不足 + 训练进入平台期
+Presentation Family（呈现结构族）： PF_TABULAR_REPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+
+--- PROMPT（提示词） ---
+实验指标报告（Experiment Metrics Report）
+
+| 实验字段 | 数值 / 状态 |
+| --- | --- |
+| 训练指标（train_metric） | 0.601 |
+| 验证指标（validation_metric） | 0.583 |
+| 指标方向（metric_direction） | higher_is_better |
+| 参考性能（reference_performance） | 0.864 |
+| 训练曲线（training_curve） | [0.566, 0.583, 0.591, 0.595, 0.597, 0.598, 0.599, 0.600, 0.601] |
+
+请判断这个实验最主要的问题是什么，说明支持判断的证据，并给出下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "underfitting",
+  "severity": "high",
+  "evidence_codes": [
+    "large_reference_performance_shortfall",
+    "small_train_validation_gap"
+  ],
+  "recommended_action_codes": [
+    "increase_model_capacity",
+    "train_longer",
+    "improve_feature_representation"
+  ],
+  "explanation": "Training and validation performance remain close (0.601 vs 0.583) but are substantially below the reference value 0.864. The training curve also shows only very small late improvements, providing additional evidence of underfitting."
+}
+
+==========================================================================================
+SCENARIO 17
+Scenario Family（场景族）： MC_CLEAR_QUALITY_WINNER
+中文含义： 两个模型存在明确质量优胜者
+Presentation Family（呈现结构族）： PF_NARRATIVE_SUMMARY
+Split（数据划分）： test
+Task Type（任务类型）： model_comparison
+
+--- PROMPT（提示词） ---
+在最近一次实验运行中，主要指标（primary_metric）记录为macro_f1；指标方向（metric_direction）记录为higher_is_better；Model A 指标值记录为0.815；Model B 指标值记录为0.910。这些结果需要进一步分析。
+
+请比较两个模型，并根据给出的实验指标说明应该如何做出选择。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "model_comparison",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "model_b_higher_primary_metric"
+  ],
+  "recommended_action_codes": [
+    "prefer_model_b"
+  ],
+  "explanation": "Model A scores 0.815 and Model B scores 0.910 on the stated primary metric. Model B has a clearly better result under the requested comparison objective."
+}
+
+==========================================================================================
+SCENARIO 18
+Scenario Family（场景族）： MC_IMBALANCED_METRIC_COMPARISON
+中文含义： 类别不平衡条件下的模型指标比较
+Presentation Family（呈现结构族）： PF_TRACKER_EXPORT
+Split（数据划分）： train
+Task Type（任务类型）： model_comparison
+
+--- PROMPT（提示词） ---
+下面是一段 Experiment Tracker（实验跟踪器）的运行摘要：
+
+[run_summary]
+run_id=pilot_37e5fe0f96d3
+model_a_accuracy=0.911
+model_a_macro_f1=0.823
+model_b_accuracy=0.902
+model_b_macro_f1=0.719
+
+请比较两个模型，并根据给出的实验指标说明应该如何做出选择。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "model_comparison",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "model_a_higher_macro_f1"
+  ],
+  "recommended_action_codes": [
+    "prioritize_macro_f1",
+    "prefer_model_a"
+  ],
+  "explanation": "Model A reports accuracy/macro-F1 of 0.911/0.823, while Model B reports 0.902/0.719. Under an imbalance-aware objective, Model A is preferable because its macro-F1 is higher even if raw accuracy alone suggests a different conclusion."
+}
+
+==========================================================================================
+SCENARIO 19
+Scenario Family（场景族）： MC_NO_CLEAR_WINNER
+中文含义： 两个模型没有明显优胜者
+Presentation Family（呈现结构族）： PF_STRUCTURED_BLOCK
+Split（数据划分）： train
+Task Type（任务类型）： model_comparison
+
+--- PROMPT（提示词） ---
+实验快照（Experiment Snapshot）
+- 主要指标（primary_metric）: macro_f1
+- 指标方向（metric_direction）: higher_is_better
+- Model A 指标值: 0.865
+- Model B 指标值: 0.861
+
+请比较两个模型，并根据给出的实验指标说明应该如何做出选择。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "model_comparison",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "no_material_model_difference"
+  ],
+  "recommended_action_codes": [
+    "collect_more_evaluation_evidence"
+  ],
+  "explanation": "Model A scores 0.865 and Model B scores 0.861; their relative difference is only about 0.005. That difference is too small for a confident winner under the current project rule, so more evidence is appropriate."
+}
+
+==========================================================================================
+SCENARIO 20
+Scenario Family（场景族）： MC_QUALITY_EFFICIENCY_TRADEOFF
+中文含义： 模型质量与推理效率之间的权衡
+Presentation Family（呈现结构族）： PF_CONCISE_NOTE
+Split（数据划分）： validation
+Task Type（任务类型）： model_comparison
+
+--- PROMPT（提示词） ---
+我在检查一次深度学习实验。质量指标（quality_metric）为macro_f1，质量指标方向（quality_direction）为higher_is_better，Model A 质量指标为0.913，Model B 质量指标为0.843，Model A 延迟（ms）为138.511，Model B 延迟（ms）为59.971。
+
+请比较两个模型，并根据给出的实验指标说明应该如何做出选择。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "model_comparison",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "quality_efficiency_tradeoff",
+    "model_a_higher_primary_metric",
+    "model_b_lower_latency"
+  ],
+  "recommended_action_codes": [
+    "choose_by_deployment_constraint"
+  ],
+  "explanation": "Model A has quality 0.913 with 138.5 ms latency, while Model B has quality 0.843 with 60.0 ms latency. One model provides stronger predictive quality while the other is faster, so the final choice depends on deployment constraints."
+}
+
+==========================================================================================
+SCENARIO 21
+Scenario Family（场景族）： MI_ACCURACY_MACRO_F1_GAP
+中文含义： 解读准确率与宏平均 F1 的明显差距
+Presentation Family（呈现结构族）： PF_DEBUG_TICKET
+Split（数据划分）： test
+Task Type（任务类型）： metric_interpretation
+
+--- PROMPT（提示词） ---
+Debug Ticket（调试工单）
+
+Context（背景）:
+- 模型训练或评估结果需要进一步分析。
+
+Observations（观测结果）:
+- 准确率（accuracy）: 0.894
+- 宏平均 F1（macro_f1）: 0.656
+- 各类别样本量（class_counts）: {"class_A": 1124, "class_B": 83, "class_C": 579}
+
+Question（问题）:
+请解释这些指标最值得关注的现象，并说明这些数值意味着什么。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "metric_interpretation",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "Accuracy is 0.894, while macro-F1 is only 0.656. The 0.238 gap indicates that aggregate accuracy may be hiding uneven performance across classes."
+}
+
+==========================================================================================
+SCENARIO 22
+Scenario Family（场景族）： MI_CLASSWISE_PERFORMANCE_GAP
+中文含义： 解读不同类别之间的性能差异
+Presentation Family（呈现结构族）： PF_TABULAR_REPORT
+Split（数据划分）： train
+Task Type（任务类型）： metric_interpretation
+
+--- PROMPT（提示词） ---
+实验指标报告（Experiment Metrics Report）
+
+| 实验字段 | 数值 / 状态 |
+| --- | --- |
+| 逐类别指标（per_class_metric） | {"class_A": 0.884, "class_B": 0.546, "class_C": 0.849} |
+
+请解释这些指标最值得关注的现象，并说明这些数值意味着什么。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "metric_interpretation",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "large_class_performance_gap"
+  ],
+  "recommended_action_codes": [
+    "inspect_worst_class"
+  ],
+  "explanation": "The best and worst class-specific results differ by 0.338. Aggregate metrics alone would therefore hide a meaningful class-level performance gap."
+}
+
+==========================================================================================
+SCENARIO 23
+Scenario Family（场景族）： MI_PRECISION_RECALL_TRADEOFF
+中文含义： 解读精确率与召回率权衡
+Presentation Family（呈现结构族）： PF_NARRATIVE_SUMMARY
+Split（数据划分）： test
+Task Type（任务类型）： metric_interpretation
+
+--- PROMPT（提示词） ---
+在最近一次实验运行中，精确率（precision）记录为0.577；召回率（recall）记录为0.905。这些结果需要进一步分析。
+
+请解释这些指标最值得关注的现象，并说明这些数值意味着什么。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "metric_interpretation",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "recall_dominates_precision"
+  ],
+  "recommended_action_codes": [
+    "inspect_false_positives"
+  ],
+  "explanation": "Recall (0.905) is substantially higher than precision (0.577). The model captures more true positives, but this comes with more false-positive predictions."
+}
+
+==========================================================================================
+SCENARIO 24
+Scenario Family（场景族）： MI_TRAIN_VALIDATION_GAP
+中文含义： 解读训练与验证指标差距
+Presentation Family（呈现结构族）： PF_TRACKER_EXPORT
+Split（数据划分）： train
+Task Type（任务类型）： metric_interpretation
+
+--- PROMPT（提示词） ---
+下面是一段 Experiment Tracker（实验跟踪器）的运行摘要：
+
+[run_summary]
+run_id=pilot_ab90b00ae0b6
+train_metric=0.937
+validation_metric=0.681
+metric_direction=higher_is_better
+
+请解释这些指标最值得关注的现象，并说明这些数值意味着什么。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "metric_interpretation",
+  "primary_issue": "not_applicable",
+  "severity": "not_applicable",
+  "evidence_codes": [
+    "strong_generalization_gap"
+  ],
+  "recommended_action_codes": [
+    "inspect_generalization_gap"
+  ],
+  "explanation": "Training performance is 0.937 while validation performance is 0.681. The large direction-aware gap shows that performance on the training data does not transfer equally well to validation data."
+}

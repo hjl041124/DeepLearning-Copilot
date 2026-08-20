@@ -1,0 +1,40 @@
+{
+  "standard_test": {
+    "total_samples": 480,
+    "semantic_metrics": {
+      "primary_issue_accuracy": 1.0,
+      "primary_issue_macro_f1": 1.0
+    },
+    "protocol_metrics": {
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.19166666666666668,
+      "primary_issue_valid_rate": 0.025
+    },
+    "grounding_metrics": {
+      "evidence_exact_set_accuracy": 0.08958333333333333,
+      "recommendation_exact_set_accuracy": 0.0
+    },
+    "complete_success_metrics": {
+      "core_exact_match_rate": 0.0
+    }
+  },
+  "hard_test": {
+    "total_samples": 240,
+    "semantic_metrics": {
+      "primary_issue_accuracy": 0.6666666666666666,
+      "primary_issue_macro_f1": 0.4
+    },
+    "protocol_metrics": {
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.08333333333333333,
+      "primary_issue_valid_rate": 0.0125
+    },
+    "grounding_metrics": {
+      "evidence_exact_set_accuracy": 0.0,
+      "recommendation_exact_set_accuracy": 0.0
+    },
+    "complete_success_metrics": {
+      "core_exact_match_rate": 0.0
+    }
+  }
+}

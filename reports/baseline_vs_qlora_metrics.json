@@ -1,0 +1,50 @@
+{
+  "standard_test": {
+    "baseline": {
+      "samples": 480,
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.19166666666666668,
+      "primary_issue_valid_rate": 0.025,
+      "primary_issue_accuracy": 1.0,
+      "primary_issue_macro_f1": 1.0,
+      "evidence_exact_match": 0.08958333333333333,
+      "recommendation_exact_match": 0.0,
+      "core_exact_match": 0.0
+    },
+    "qlora": {
+      "samples": 480,
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.6479166666666667,
+      "primary_issue_valid_rate": 0.8229166666666666,
+      "primary_issue_accuracy": 0.7240506329113924,
+      "primary_issue_macro_f1": 0.7411066545394903,
+      "evidence_exact_match": 0.5270833333333333,
+      "recommendation_exact_match": 0.5833333333333334,
+      "core_exact_match": 0.2791666666666667
+    }
+  },
+  "hard_test": {
+    "baseline": {
+      "samples": 240,
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.08333333333333333,
+      "primary_issue_valid_rate": 0.0125,
+      "primary_issue_accuracy": 0.6666666666666666,
+      "primary_issue_macro_f1": 0.4,
+      "evidence_exact_match": 0.0,
+      "recommendation_exact_match": 0.0,
+      "core_exact_match": 0.0
+    },
+    "qlora": {
+      "samples": 240,
+      "parse_success_rate": 1.0,
+      "task_type_valid_rate": 0.6125,
+      "primary_issue_valid_rate": 0.7041666666666667,
+      "primary_issue_accuracy": 0.39644970414201186,
+      "primary_issue_macro_f1": 0.24126471967127217,
+      "evidence_exact_match": 0.275,
+      "recommendation_exact_match": 0.1625,
+      "core_exact_match": 0.1125
+    }
+  }
+}

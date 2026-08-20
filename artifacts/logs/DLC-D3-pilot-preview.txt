@@ -1,0 +1,253 @@
+
+================================================================================
+PREVIEW 1
+Presentation Family（呈现结构族）： PF_CONCISE_NOTE
+Split（数据划分）： validation
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+本次任务类型为 experiment_diagnosis。 class_counts 为 [1138, 77, 644]。 accuracy 为 0.938。 macro_f1 为 0.65。
+
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
+
+================================================================================
+PREVIEW 2
+Presentation Family（呈现结构族）： PF_DEBUG_TICKET
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+Debug Ticket
+
+Context:
+- task_type: experiment_diagnosis
+
+Observations:
+- class_counts: [1094, 52, 791]
+- accuracy: 0.891
+- macro_f1: 0.653
+
+Question:
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
+
+================================================================================
+PREVIEW 3
+Presentation Family（呈现结构族）： PF_NARRATIVE_SUMMARY
+Split（数据划分）： test
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+这是一次 experiment_diagnosis 任务。实验记录显示，class_counts 记录为 [1296, 62, 712]，accuracy 记录为 0.911，macro_f1 记录为 0.633。
+
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
+
+================================================================================
+PREVIEW 4
+Presentation Family（呈现结构族）： PF_STRUCTURED_BLOCK
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+Experiment Snapshot
+task_type: experiment_diagnosis
+class_counts: [1281, 75, 696]
+accuracy: 0.892
+macro_f1: 0.638
+
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
+
+================================================================================
+PREVIEW 5
+Presentation Family（呈现结构族）： PF_TABULAR_REPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+Experiment Metrics Report
+
+| Field | Value |
+| --- | --- |
+| task_type | experiment_diagnosis |
+| class_counts | [1059, 56, 760] |
+| accuracy | 0.919 |
+| macro_f1 | 0.654 |
+
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "medium",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
+
+================================================================================
+PREVIEW 6
+Presentation Family（呈现结构族）： PF_TRACKER_EXPORT
+Split（数据划分）： train
+Task Type（任务类型）： experiment_diagnosis
+Scenario Family（场景族）： ED_CI_ACCURACY_MASKS_MACRO_F1
+
+--- PROMPT（提示词） ---
+[run_summary]
+run_id=pilot_27a7d562f76c
+task_type=experiment_diagnosis
+class_counts=[1216, 56, 771]
+accuracy=0.932
+macro_f1=0.682
+
+请根据这些实验结果诊断最主要的实验问题，给出证据和下一步建议。
+
+请严格输出一个 JSON 对象，并且只能包含以下字段：
+
+task_type
+primary_issue
+severity
+evidence_codes
+recommended_action_codes
+explanation
+
+--- GROUND TRUTH（标准答案） ---
+{
+  "task_type": "experiment_diagnosis",
+  "primary_issue": "class_imbalance",
+  "severity": "high",
+  "evidence_codes": [
+    "strong_class_distribution_skew",
+    "large_accuracy_macro_f1_gap"
+  ],
+  "recommended_action_codes": [
+    "use_class_weighting",
+    "use_balanced_sampling",
+    "evaluate_macro_metrics"
+  ],
+  "explanation": "The primary diagnosis is class_imbalance. The decision is supported by: strong_class_distribution_skew, large_accuracy_macro_f1_gap."
+}
