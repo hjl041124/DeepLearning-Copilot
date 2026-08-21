@@ -1,0 +1,49 @@
+{
+  "version": "3.0",
+
+  "purpose": "Hard reasoning focused SFT dataset based on QLoRA v2 error analysis.",
+
+  "base_model": "Qwen3-4B-Instruct-2507",
+
+  "target_samples": 4000,
+
+  "composition": {
+    "priority_composition": 0.50,
+    "directional_boundary": 0.30,
+    "output_completion": 0.20
+  },
+
+  "priority_targets": [
+    "data_quality_vs_optimization",
+    "optimization_vs_overfitting",
+    "class_imbalance_vs_underfitting",
+    "multiple_issue_selection"
+  ],
+
+  "boundary_targets": [
+    "generalization_gap_threshold",
+    "label_noise_threshold",
+    "class_imbalance_ratio_threshold"
+  ],
+
+  "output_targets": [
+    "severity_completion",
+    "evidence_completion",
+    "recommendation_completion",
+    "full_schema_completion"
+  ],
+
+  "split_policy": {
+    "split_unit": "template_family_id",
+    "random_split": false,
+    "template_leakage_forbidden": true
+  },
+
+  "evaluation_targets": [
+    "hard_test_core_exact_match",
+    "priority_composition_accuracy",
+    "directional_boundary_success_rate",
+    "evidence_exact_match",
+    "recommendation_exact_match"
+  ]
+}

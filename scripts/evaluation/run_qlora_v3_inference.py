@@ -21,7 +21,7 @@ BASE_MODEL = (
 )
 
 ADAPTER_PATH = (
-    "models/qwen3-4b-dlcopilot-qlora-v2"
+    "models/qwen3-4b-dlcopilot-final-qlora"
 )
 
 
@@ -32,7 +32,7 @@ DATASETS = {
 
 
 OUTPUT_DIR = Path(
-    "reports/qlora_v2"
+    "reports/qlora_v3"
 )
 
 

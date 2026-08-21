@@ -1,4 +1,5 @@
 import json
+import argparse
 from pathlib import Path
 
 import torch
@@ -21,7 +22,7 @@ from peft import (
 from trl import SFTTrainer
 
 
-CONFIG_PATH = Path(
+DEFAULT_CONFIG_PATH = Path(
     "configs/qlora_config_v1.json"
 )
 
@@ -29,10 +30,10 @@ CONFIG_PATH = Path(
 DATA_PATH = None
 
 
-def load_config():
+def load_config(config_path):
 
     return json.loads(
-        CONFIG_PATH.read_text(
+        config_path.read_text(
             encoding="utf-8"
         )
     )
@@ -70,7 +71,19 @@ def load_dataset(data_path):
 
 def main():
 
-    config = load_config()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--config",
+        type=str,
+        default=str(DEFAULT_CONFIG_PATH),
+    )
+
+    args = parser.parse_args()
+
+    config = load_config(
+        Path(args.config)
+    )
 
 
     model_name = (
