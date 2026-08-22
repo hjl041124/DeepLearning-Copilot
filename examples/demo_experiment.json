@@ -1,0 +1,41 @@
+{
+  "experiment_id": "demo-cifar10-resnet18-001",
+  "experiment_context": {
+    "model_name": "ResNet18",
+    "dataset_name": "CIFAR10",
+    "task": "image_classification"
+  },
+  "metrics": {
+    "accuracy": 0.82,
+    "macro_f1": 0.74,
+    "train_metric": 0.93,
+    "validation_metric": 0.81,
+    "metric_direction": "higher_is_better",
+    "per_class_metric": [0.91, 0.88, 0.79, 0.52]
+  },
+  "training_log": {
+    "epoch": [1, 2, 3, 4, 5],
+    "train_loss": [1.2, 0.88, 0.63, 0.48, 0.37],
+    "validation_loss": [1.18, 0.9, 0.72, 0.7, 0.76],
+    "train_metric": [0.58, 0.7, 0.8, 0.88, 0.93],
+    "validation_metric": [0.57, 0.68, 0.77, 0.82, 0.81],
+    "metric_direction": "higher_is_better"
+  },
+  "dataset_info": {
+    "class_counts": {
+      "class_0": 5000,
+      "class_1": 4800,
+      "class_2": 3100,
+      "class_3": 900
+    },
+    "per_class_metric": {
+      "class_0": 0.91,
+      "class_1": 0.88,
+      "class_2": 0.79,
+      "class_3": 0.52
+    },
+    "missing_value_rate": 0.0,
+    "duplicate_rate": 0.01,
+    "split_overlap_rate": 0.0
+  }
+}
