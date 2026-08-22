@@ -1,11 +1,13 @@
 """Nodes for the fixed Phase 3 Agent workflow."""
 
 import json
+from datetime import datetime, timezone
 from typing import Any
 
 from src.agent.context_builder import build_context
 from src.agent.state import AgentState
 from src.inference.output_parser import parse_model_output
+from src.storage.sqlite_store import SQLiteExperimentStore
 from src.tools.dataset_checker import check_dataset
 from src.tools.metric_analysis_tool import analyze_metrics
 from src.tools.training_log_analyzer import analyze_training_log
@@ -203,6 +205,68 @@ def generate_report(state: AgentState) -> dict[str, Any]:
     return {
         "report": report,
         "workflow_status": "report_generated",
+    }
+
+
+def persist_result(
+    state: AgentState,
+    store: SQLiteExperimentStore | None,
+) -> dict[str, Any]:
+    """Record the run without changing its diagnosis outcome."""
+
+    if store is None:
+        return {
+            "workflow_status": "persistence_skipped",
+            "persistence_error": None,
+        }
+
+    completed_at = datetime.now(timezone.utc).isoformat()
+    final_status = "failed" if state.get("error") else "completed"
+
+    try:
+        store.save_experiment(
+            state["experiment_id"],
+            state.get("experiment_context", {}),
+            state["started_at"],
+        )
+        store.save_execution(
+            execution_id=state["execution_id"],
+            experiment_id=state["experiment_id"],
+            status=final_status,
+            started_at=state["started_at"],
+            completed_at=completed_at,
+            raw_model_output=state.get("raw_model_output"),
+        )
+
+        for tool_result in (
+            state.get("metric_tool_result"),
+            state.get("log_tool_result"),
+            state.get("dataset_tool_result"),
+        ):
+            if tool_result is not None:
+                store.save_tool_result(
+                    state["execution_id"],
+                    tool_result,
+                )
+
+        diagnosis = state.get("diagnosis")
+        report = state.get("report")
+        if diagnosis is not None and report is not None:
+            store.save_diagnosis_result(
+                state["execution_id"],
+                diagnosis,
+                report,
+            )
+    except Exception as exc:
+        return {
+            "completed_at": completed_at,
+            "persistence_error": f"result persistence failed: {exc}",
+        }
+
+    return {
+        "completed_at": completed_at,
+        "workflow_status": "result_persisted",
+        "persistence_error": None,
     }
 
 
