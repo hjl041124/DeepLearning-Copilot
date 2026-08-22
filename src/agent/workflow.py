@@ -1,32 +1,46 @@
-"""LangGraph construction for the Phase 1 Agent skeleton."""
+"""LangGraph construction for the integrated Agent workflow."""
+
+from typing import Any
 
 from langgraph.graph import END, START, StateGraph
 
 from src.agent.nodes import (
+    build_context_node,
+    execute_tools,
     finish,
     generate_report,
-    mock_model_call,
-    prepare_state,
+    invoke_qlora,
     receive_input,
+    validate_output_node,
 )
 from src.agent.state import AgentState
+from src.inference.mock_diagnosis_model import MockDiagnosisModel
 
 
-def build_workflow():
-    """Build the fixed, single-agent Phase 1 workflow."""
+def build_workflow(diagnosis_model: Any | None = None):
+    """Build the fixed, single-agent Phase 3 workflow."""
+
+    model = diagnosis_model or MockDiagnosisModel()
 
     graph = StateGraph(AgentState)
 
     graph.add_node("receive_input", receive_input)
-    graph.add_node("prepare_state", prepare_state)
-    graph.add_node("mock_model_call", mock_model_call)
+    graph.add_node("execute_tools", execute_tools)
+    graph.add_node("build_context", build_context_node)
+    graph.add_node(
+        "invoke_qlora",
+        lambda state: invoke_qlora(state, model),
+    )
+    graph.add_node("validate_output", validate_output_node)
     graph.add_node("generate_report", generate_report)
     graph.add_node("finish", finish)
 
     graph.add_edge(START, "receive_input")
-    graph.add_edge("receive_input", "prepare_state")
-    graph.add_edge("prepare_state", "mock_model_call")
-    graph.add_edge("mock_model_call", "generate_report")
+    graph.add_edge("receive_input", "execute_tools")
+    graph.add_edge("execute_tools", "build_context")
+    graph.add_edge("build_context", "invoke_qlora")
+    graph.add_edge("invoke_qlora", "validate_output")
+    graph.add_edge("validate_output", "generate_report")
     graph.add_edge("generate_report", "finish")
     graph.add_edge("finish", END)
 
