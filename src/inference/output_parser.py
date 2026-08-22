@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from src.evaluation.output_validator import validate_output
+from src.inference.semantic_alignment import align_model_output
 
 
 @dataclass
@@ -21,7 +22,7 @@ class ParsedModelOutput:
 
 
 def parse_model_output(raw_model_output: str) -> ParsedModelOutput:
-    """Extract one JSON object and apply the existing output validator."""
+    """Extract, deterministically align, and validate one JSON object."""
 
     if not isinstance(raw_model_output, str):
         return ParsedModelOutput(
@@ -55,6 +56,8 @@ def parse_model_output(raw_model_output: str) -> ParsedModelOutput:
             diagnosis=None,
             validation_errors=["diagnosis output must be a JSON object"],
         )
+
+    diagnosis = align_model_output(diagnosis)
 
     return ParsedModelOutput(
         raw_model_output=raw_model_output,
