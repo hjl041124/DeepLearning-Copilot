@@ -9,6 +9,10 @@ PRIMARY_ISSUE_ALIASES = {
     "class_imbalance_issue": "class_imbalance",
 }
 
+EVIDENCE_CODE_ALIASES = {
+    "small_majority_class_f1": "large_class_performance_gap",
+}
+
 
 def _deduplicate(values: Any) -> Any:
     """Remove duplicate list items while preserving their original order."""
@@ -51,6 +55,22 @@ def align_model_output(output: dict[str, Any]) -> dict[str, Any]:
             primary_issue,
             canonical,
         )
+
+    evidence_codes = aligned.get("evidence_codes")
+    if isinstance(evidence_codes, list):
+        mapped_evidence_codes = []
+        for code in evidence_codes:
+            canonical = EVIDENCE_CODE_ALIASES.get(code, code)
+            mapped_evidence_codes.append(canonical)
+
+            if canonical != code:
+                aligned["explanation"] = _replace_exact_token(
+                    aligned.get("explanation"),
+                    code,
+                    canonical,
+                )
+
+        aligned["evidence_codes"] = mapped_evidence_codes
 
     for field in ("evidence_codes", "recommended_action_codes"):
         if field in aligned:

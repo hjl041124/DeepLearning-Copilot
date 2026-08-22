@@ -54,28 +54,91 @@ class SemanticAlignmentTests(unittest.TestCase):
             "not class_imbalance_issue_extra.",
         )
 
-    def test_unknown_evidence_still_fails_validation(self):
+    def test_aligns_confirmed_evidence_alias(self):
         parsed = parse_model_output(
             json.dumps(
                 _diagnosis(
-                    primary_issue="class_imbalance_issue",
                     evidence_codes=[
                         "strong_class_distribution_skew",
                         "small_majority_class_f1",
                     ],
+                    explanation=(
+                        "Evidence: small_majority_class_f1."
+                    ),
                 )
             )
         )
 
-        self.assertFalse(parsed.is_valid)
-        self.assertIn(
-            "small_majority_class_f1",
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
             parsed.diagnosis["evidence_codes"],
+            [
+                "strong_class_distribution_skew",
+                "large_class_performance_gap",
+            ],
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Evidence: large_class_performance_gap.",
+        )
+
+    def test_evidence_alias_mapping_deduplicates_array(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    evidence_codes=[
+                        "large_class_performance_gap",
+                        "small_majority_class_f1",
+                    ]
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            ["large_class_performance_gap"],
+        )
+
+    def test_unknown_evidence_still_fails_validation(self):
+        unknown_code = "unregistered_evidence_code"
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(evidence_codes=[unknown_code])
+            )
+        )
+
+        self.assertFalse(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            [unknown_code],
         )
         self.assertIn(
-            "unknown evidence code: small_majority_class_f1",
+            f"unknown evidence code: {unknown_code}",
             parsed.validation_errors,
         )
+
+    def test_raw_model_output_remains_unchanged(self):
+        raw = json.dumps(
+            _diagnosis(
+                primary_issue="class_imbalance_issue",
+                evidence_codes=[
+                    "large_class_performance_gap",
+                    "small_majority_class_f1",
+                ],
+                explanation=(
+                    "class_imbalance_issue with "
+                    "small_majority_class_f1."
+                ),
+            )
+        )
+
+        parsed = parse_model_output(raw)
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(parsed.raw_model_output, raw)
+        self.assertIn("class_imbalance_issue", parsed.raw_model_output)
+        self.assertIn("small_majority_class_f1", parsed.raw_model_output)
 
     def test_does_not_change_valid_output(self):
         output = _diagnosis()
