@@ -29,19 +29,19 @@ Checking that the library is importable and callable...
 SUCCESS!
 
 ===== HUGGING FACE CACHE =====
-HF_HOME=/root/autodl-tmp/huggingface
-HF_HUB_CACHE=/root/autodl-tmp/huggingface/hub
+HF_HOME=<AUTODL_WORKSPACE>/huggingface
+HF_HUB_CACHE=<AUTODL_WORKSPACE>/huggingface/hub
 
 ===== PYTHON ENVIRONMENT =====
 Python 3.11.15
-/root/autodl-tmp/envs/dlcopilot/bin/python
+<AUTODL_WORKSPACE>/envs/dlcopilot/bin/python
 
 ===== GIT STATUS =====
 ?? artifacts/environment/DLC-D1-E01-pre-model-verification.txt
 
 ===== DATA DISK =====
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/md0        150G  7.2G  143G   5% /root/autodl-tmp
+<DATA_DEVICE>   150G  7.2G  143G   5% <AUTODL_WORKSPACE>
 
 ========================================
 END

@@ -11,7 +11,9 @@ Same Dataset
 Same Parser
 Same Output Schema
 Same Failure Policy
-Same Metric Implementationcd /root/autodl-tmp/DeepLearning-Copilot
+Same Metric Implementation
+
+cd <PROJECT_ROOT>
 
 mkdir -p configs docs scripts
 

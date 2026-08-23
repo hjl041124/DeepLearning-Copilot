@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 *.so
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Environment（虛擬環境）
 .venv/
@@ -10,6 +16,8 @@ env/
 
 # Secrets（密鑰）
 .env
+.env.*
+!.env.example
 *.key
 *.pem
 
@@ -20,6 +28,9 @@ checkpoints/
 *.bin
 *.pt
 *.pth
+*.sqlite
+*.sqlite3
+*.db
 
 # Hugging Face cache（模型快取）
 .cache/
@@ -38,5 +49,15 @@ data/generated/
 # Experiment trackers（實驗追蹤工具）
 wandb/
 
+# Build and package outputs（構建與套件輸出）
+build/
+dist/
+*.egg-info/
+
+# Editors（編輯器設定）
+.vscode/
+.idea/
+
 # OS
 .DS_Store
+Thumbs.db

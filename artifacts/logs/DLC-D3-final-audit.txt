@@ -64,7 +64,7 @@ validation Diagnosis Issue Distribution（诊断问题分布）： {'class_imbal
 test Task Type Distribution（任务类型分布）： {'experiment_diagnosis': 288, 'model_comparison': 96, 'metric_interpretation': 96}
 test Diagnosis Issue Distribution（诊断问题分布）： {'class_imbalance': 48, 'data_quality_issue': 48, 'no_clear_issue': 48, 'overfitting': 48, 'optimization_problem': 48, 'underfitting': 48}
 DAY3 TEMPLATE FAMILY VALIDATION PASSED
-配置文件： /root/autodl-tmp/DeepLearning-Copilot/configs/template_families_v1.json
+配置文件： <PROJECT_ROOT>/configs/template_families_v1.json
 Active Scenario Family（活动场景族）： 24
 Presentation Family（呈现结构族）： 6
 Template Family（模板族）： 144
@@ -72,7 +72,7 @@ Task Type（任务类型）分布： {'experiment_diagnosis': 96, 'metric_interp
 Split（数据划分）分布： {'train': 72, 'validation': 24, 'test': 48}
 每个 Scenario Family（场景族）的 Split 配置： {'train': 3, 'validation': 1, 'test': 2}
 DAY3 SCENARIO FAMILY VALIDATION PASSED
-配置文件： /root/autodl-tmp/DeepLearning-Copilot/configs/scenario_families_v1.json
+配置文件： <PROJECT_ROOT>/configs/scenario_families_v1.json
 experiment_diagnosis scenario families： 16
 metric_interpretation scenario families： 4
 model_comparison scenario families： 4

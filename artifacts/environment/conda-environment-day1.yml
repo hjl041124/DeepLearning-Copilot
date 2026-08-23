@@ -1,4 +1,4 @@
-name: /root/autodl-tmp/envs/dlcopilot
+name: dlcopilot
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
@@ -117,4 +117,4 @@ dependencies:
       - wheel==0.48.0
       - xxhash==4.0.1
       - yarl==1.24.5
-prefix: /root/autodl-tmp/envs/dlcopilot
+prefix: ./envs/dlcopilot

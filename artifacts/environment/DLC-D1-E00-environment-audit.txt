@@ -5,14 +5,14 @@ Date: Wed Aug 19 21:29:37 CST 2026
 
 ===== PYTHON =====
 Python 3.12.3
-/root/miniconda3/bin/python3
+<CONDA_ROOT>/bin/python3
 
 ===== CONDA =====
 conda 24.4.0
-/root/miniconda3
+<CONDA_ROOT>
 
 ===== CONDA CONFIG =====
-==> /root/.condarc <==
+==> <USER_HOME>/.condarc <==
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
@@ -40,7 +40,7 @@ Swap:             0B          0B          0B
 Filesystem      Size  Used Avail Use% Mounted on
 overlay          30G   53M   30G   1% /
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/md0        150G   20K  150G   1% /root/autodl-tmp
+<DATA_DEVICE>   150G   20K  150G   1% <AUTODL_WORKSPACE>
 
 ===== BASE PYTORCH =====
 torch: 2.5.1+cu124
