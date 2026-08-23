@@ -16,6 +16,9 @@ PRIMARY_ISSUE_ALIASES = {
 }
 
 EVIDENCE_CODE_ALIASES = {
+    "all_primary_indicators_within_threshold": (
+        "no_strong_diagnostic_rule_triggered"
+    ),
     "high_class_imbalance": "strong_class_distribution_skew",
     "late_degradation": "late_validation_degradation",
     "relative_generalization_gap": "strong_generalization_gap",

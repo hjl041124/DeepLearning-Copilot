@@ -235,6 +235,39 @@ class SemanticAlignmentTests(unittest.TestCase):
             "late_validation_degradation.",
         )
 
+    def test_aligns_healthy_evidence_alias_and_explanation(self):
+        raw = json.dumps(
+            _diagnosis(
+                primary_issue="no_clear_issue",
+                severity="low",
+                evidence_codes=[
+                    "all_primary_indicators_within_threshold"
+                ],
+                recommended_action_codes=["continue_monitoring"],
+                explanation=(
+                    "Evidence: "
+                    "all_primary_indicators_within_threshold."
+                ),
+            )
+        )
+
+        parsed = parse_model_output(raw)
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            ["no_strong_diagnostic_rule_triggered"],
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Evidence: no_strong_diagnostic_rule_triggered.",
+        )
+        self.assertEqual(parsed.raw_model_output, raw)
+        self.assertIn(
+            "all_primary_indicators_within_threshold",
+            parsed.raw_model_output,
+        )
+
     def test_aligns_action_alias_and_deduplicates_array(self):
         parsed = parse_model_output(
             json.dumps(
