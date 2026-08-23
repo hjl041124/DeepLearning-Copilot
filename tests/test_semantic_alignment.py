@@ -21,6 +21,28 @@ def _diagnosis(**overrides):
 
 
 class SemanticAlignmentTests(unittest.TestCase):
+    def test_aligns_data_quality_assessment_task_type_alias(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    task_type="data_quality_assessment",
+                    explanation=(
+                        "Task type: data_quality_assessment."
+                    ),
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["task_type"],
+            "experiment_diagnosis",
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Task type: experiment_diagnosis.",
+        )
+
     def test_aligns_confirmed_primary_issue_alias(self):
         parsed = parse_model_output(
             json.dumps(
@@ -32,6 +54,28 @@ class SemanticAlignmentTests(unittest.TestCase):
         self.assertEqual(
             parsed.diagnosis["primary_issue"],
             "class_imbalance",
+        )
+
+    def test_aligns_no_detected_issue_primary_issue_alias(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    primary_issue="no_detected_issue",
+                    explanation=(
+                        "Primary issue: no_detected_issue."
+                    ),
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["primary_issue"],
+            "no_clear_issue",
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Primary issue: no_clear_issue.",
         )
 
     def test_aligns_strong_class_imbalance_primary_issue_alias(self):
@@ -160,6 +204,60 @@ class SemanticAlignmentTests(unittest.TestCase):
             ["strong_class_distribution_skew"],
         )
 
+    def test_aligns_generalization_evidence_aliases(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    evidence_codes=[
+                        "strong_generalization_gap",
+                        "relative_generalization_gap",
+                        "late_degradation",
+                    ],
+                    explanation=(
+                        "relative_generalization_gap with "
+                        "late_degradation."
+                    ),
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            [
+                "strong_generalization_gap",
+                "late_validation_degradation",
+            ],
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "strong_generalization_gap with "
+            "late_validation_degradation.",
+        )
+
+    def test_aligns_action_alias_and_deduplicates_array(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    recommended_action_codes=[
+                        "inspect_generalization_gap",
+                        "monitor_generalization",
+                    ],
+                    explanation="Action: monitor_generalization.",
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["recommended_action_codes"],
+            ["inspect_generalization_gap"],
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Action: inspect_generalization_gap.",
+        )
+
     def test_unknown_evidence_still_fails_validation(self):
         unknown_code = "unregistered_evidence_code"
         parsed = parse_model_output(
@@ -199,6 +297,42 @@ class SemanticAlignmentTests(unittest.TestCase):
         self.assertEqual(parsed.raw_model_output, raw)
         self.assertIn("class_imbalance_issue", parsed.raw_model_output)
         self.assertIn("small_majority_class_f1", parsed.raw_model_output)
+
+    def test_new_aliases_leave_raw_model_output_unchanged(self):
+        raw = json.dumps(
+            _diagnosis(
+                task_type="data_quality_assessment",
+                primary_issue="no_detected_issue",
+                evidence_codes=[
+                    "relative_generalization_gap",
+                    "late_degradation",
+                ],
+                recommended_action_codes=["monitor_generalization"],
+                explanation=(
+                    "data_quality_assessment found no_detected_issue with "
+                    "relative_generalization_gap and late_degradation; "
+                    "monitor_generalization."
+                ),
+            )
+        )
+
+        parsed = parse_model_output(raw)
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(parsed.raw_model_output, raw)
+        self.assertIn("data_quality_assessment", parsed.raw_model_output)
+        self.assertIn("no_detected_issue", parsed.raw_model_output)
+        self.assertIn("relative_generalization_gap", parsed.raw_model_output)
+        self.assertIn("late_degradation", parsed.raw_model_output)
+        self.assertIn("monitor_generalization", parsed.raw_model_output)
+        self.assertEqual(
+            parsed.diagnosis["task_type"],
+            "experiment_diagnosis",
+        )
+        self.assertEqual(
+            parsed.diagnosis["primary_issue"],
+            "no_clear_issue",
+        )
 
     def test_does_not_change_valid_output(self):
         output = _diagnosis()
