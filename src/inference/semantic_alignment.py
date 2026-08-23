@@ -7,9 +7,11 @@ from typing import Any
 
 PRIMARY_ISSUE_ALIASES = {
     "class_imbalance_issue": "class_imbalance",
+    "strong_class_imbalance": "class_imbalance",
 }
 
 EVIDENCE_CODE_ALIASES = {
+    "high_class_imbalance": "strong_class_distribution_skew",
     "small_majority_class_f1": "large_class_performance_gap",
 }
 

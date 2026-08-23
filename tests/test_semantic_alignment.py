@@ -34,6 +34,28 @@ class SemanticAlignmentTests(unittest.TestCase):
             "class_imbalance",
         )
 
+    def test_aligns_strong_class_imbalance_primary_issue_alias(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    primary_issue="strong_class_imbalance",
+                    explanation=(
+                        "Primary issue: strong_class_imbalance."
+                    ),
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["primary_issue"],
+            "class_imbalance",
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Primary issue: class_imbalance.",
+        )
+
     def test_synchronizes_exact_alias_in_explanation(self):
         parsed = parse_model_output(
             json.dumps(
@@ -98,6 +120,44 @@ class SemanticAlignmentTests(unittest.TestCase):
         self.assertEqual(
             parsed.diagnosis["evidence_codes"],
             ["large_class_performance_gap"],
+        )
+
+    def test_aligns_high_class_imbalance_evidence_alias(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    evidence_codes=["high_class_imbalance"],
+                    explanation="Evidence: high_class_imbalance.",
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            ["strong_class_distribution_skew"],
+        )
+        self.assertEqual(
+            parsed.diagnosis["explanation"],
+            "Evidence: strong_class_distribution_skew.",
+        )
+
+    def test_high_class_imbalance_mapping_deduplicates_array(self):
+        parsed = parse_model_output(
+            json.dumps(
+                _diagnosis(
+                    evidence_codes=[
+                        "strong_class_distribution_skew",
+                        "high_class_imbalance",
+                    ]
+                )
+            )
+        )
+
+        self.assertTrue(parsed.is_valid)
+        self.assertEqual(
+            parsed.diagnosis["evidence_codes"],
+            ["strong_class_distribution_skew"],
         )
 
     def test_unknown_evidence_still_fails_validation(self):
