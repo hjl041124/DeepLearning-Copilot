@@ -4,27 +4,29 @@
     "model_name": "ResNet18",
     "dataset_name": "CIFAR10",
     "task": "image_classification",
-    "scenario": "overfitting_demo"
+    "metric_name": "accuracy",
+    "metric_direction": "higher_is_better",
+    "best_validation_metric": 0.86,
+    "final_train_metric": 0.98,
+    "final_validation_metric": 0.68
   },
   "metrics": {
-    "accuracy": 0.79,
-    "macro_f1": 0.78,
-    "train_metric": 0.97,
-    "validation_metric": 0.76,
+    "accuracy": 0.68,
+    "macro_f1": 0.67,
+    "train_metric": 0.98,
+    "validation_metric": 0.68,
     "metric_direction": "higher_is_better",
-    "per_class_metric": [0.8, 0.78, 0.77, 0.76]
+    "per_class_metric": [0.7, 0.69, 0.68, 0.66]
   },
   "training_log": {
-    "epoch": [1, 2, 3, 4, 5, 6],
-    "train_loss": [1.18, 0.84, 0.58, 0.39, 0.26, 0.17],
-    "validation_loss": [1.15, 0.86, 0.68, 0.61, 0.7, 0.83],
-    "train_metric": [0.58, 0.71, 0.82, 0.9, 0.94, 0.97],
-    "validation_metric": [0.57, 0.69, 0.78, 0.83, 0.8, 0.76],
+    "epoch": [1, 2, 3, 4, 5, 6, 7, 8],
+    "train_metric": [0.82, 0.86, 0.89, 0.92, 0.94, 0.96, 0.97, 0.98],
+    "validation_metric": [0.8, 0.83, 0.85, 0.86, 0.84, 0.8, 0.74, 0.68],
     "metric_direction": "higher_is_better"
   },
   "dataset_info": {
     "class_counts": [5000, 4950, 5050, 5000],
-    "per_class_metric": [0.8, 0.78, 0.77, 0.76],
+    "per_class_metric": [0.7, 0.69, 0.68, 0.66],
     "missing_value_rate": 0.0,
     "duplicate_rate": 0.0,
     "split_overlap_rate": 0.0
